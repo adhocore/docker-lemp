@@ -10,23 +10,26 @@ if [ ! -f "/run/mysqld/.init" ]; then
 
   mysql_install_db --user=mysql
 
-  SQL=""
-
+  SQL=`mktemp`
   if [ -n "$MYSQL_DATABASE" ]; then
-    SQL="CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE CHARACTER SET utf8 COLLATE utf8_general_ci;"
+    echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE CHARACTER SET utf8 COLLATE utf8_general_ci;" >> $SQL
   fi
 
-  SQL="DELETE FROM mysql.user WHERE Password = ''"
+  MYSQL_DATABASE=${MYSQL_DATABASE:-*}
 
   if [ -n "MYSQL_USER" ]; then
-    mysql -u root -e "GRANT ALL ON *.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'"
+    echo "GRANT ALL ON $MYSQL_DATABASE.* to '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $SQL
+    echo "GRANT ALL ON $MYSQL_DATABASE.* to '$MYSQL_USER'@'127.0.0.1' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $SQL
+    echo "GRANT ALL ON $MYSQL_DATABASE.* to '$MYSQL_USER'@'::1' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $SQL
   fi
 
-  mysqladmin -u root password $MYSQL_ROOT_PASSWORD
-  mysqladmin -u root -h '%' password $MYSQL_ROOT_PASSWORD
+  echo "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User='root';" >> $SQL
+  echo "DELETE FROM mysql.user WHERE User = '' OR Password = '';" >> $SQL
+  echo "FLUSH PRIVILEGES;" >> $SQL
 
-  mysql -u root -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES"
+  cat "$SQL" | mysqld --user=mysql --bootstrap --silent-startup --skip-grant-tables=FALSE
 
+  rm -rf ~/.mysql_history ~/.ash_history $SQL
   touch /run/mysqld/.init
 fi
 
