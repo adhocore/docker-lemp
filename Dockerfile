@@ -21,7 +21,6 @@ COPY main.sh /main.sh
 COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini /etc/supervisor.d/
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
-COPY php/index.php /var/www/html
 
 EXPOSE 9000 3306 80
 
