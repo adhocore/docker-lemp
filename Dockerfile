@@ -17,13 +17,16 @@ RUN apk add supervisor
 
 # RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
 
-COPY main.sh /main.sh
+COPY main.sh /entrypoint.sh
 COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini /etc/supervisor.d/
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
+# This doesnt seem to work only by making original file executable
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 9000 3306 80
 
-ENTRYPOINT ["/main.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["supervisord", "-n", "-j", "/supervisord.pid"]
