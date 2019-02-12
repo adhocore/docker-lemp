@@ -71,3 +71,59 @@ docker start lemp
 URL rewrite is already enabled for you.
 Either your app has `public/` folder or not, the rewrite adapts automatically.
 
+
+#### PHP
+
+The following PHP extensions are installed:
+
+```
+bcmath
+bz2
+calendar
+Core
+ctype
+curl
+date
+dom
+exif
+fileinfo
+filter
+ftp
+gd
+gmp
+hash
+iconv
+intl
+json
+ldap
+libxml
+mbstring
+mysqli
+mysqlnd
+openssl
+pcre
+PDO
+pdo_mysql
+pdo_pgsql
+pdo_sqlite
+pgsql
+Phar
+posix
+readline
+redis
+Reflection
+session
+SimpleXML
+soap
+sodium
+SPL
+sqlite3
+standard
+tokenizer
+xml
+xmlreader
+xmlwriter
+Zend OPcache
+zip
+zlib
+```
