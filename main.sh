@@ -33,4 +33,10 @@ if [ ! -f "/run/mysqld/.init" ]; then
   touch /run/mysqld/.init
 fi
 
+# init nginx
+if [ ! -d "/var/tmp/nginx/client_body" ]; then
+  mkdir -p /run/nginx /var/tmp/nginx/client_body
+  chown nginx:nginx -R /run/nginx /var/tmp/nginx/
+fi
+
 exec "$@"
