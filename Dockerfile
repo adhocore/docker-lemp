@@ -5,7 +5,8 @@ MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 RUN \
   PECL_EXTENSIONS="redis"; \
   PHP_EXTENSIONS="zip mysqli pdo_mysql pgsql pdo_pgsql opcache bcmath gd gmp intl ldap exif soap bz2 calendar"; \
-  apk add -U --virtual temp autoconf g++ file re2c make zlib-dev libzip-dev libtool pcre-dev libpng-dev postgresql-dev gmp-dev icu-dev openldap-dev libxml2-dev bzip2-dev \
+  apk add -U --virtual temp autoconf g++ file re2c make zlib-dev libtool pcre-dev postgresql-dev openldap-dev libxml2-dev  bzip2-dev \
+  && apk add libpng-dev gmp-dev icu-dev libzip-dev \
   && docker-php-source extract \
     && pecl channel-update pecl.php.net \
     && pecl install $PECL_EXTENSIONS \
@@ -28,7 +29,8 @@ RUN \
 
 RUN apk add supervisor
 
-RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
+RUN apk del temp \
+  && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
 
 COPY main.sh /entrypoint.sh
 COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini /etc/supervisor.d/
