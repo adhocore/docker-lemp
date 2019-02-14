@@ -60,6 +60,50 @@ docker start lemp
 >
 > eg: `docker run -p 8081:80 -v `pwd`:/var/www/html --name new-lemp -d adhocore/lemp`
 
+
+## With Docker compose
+
+Create a `docker-compose.yml` in your project root with contents something similar to:
+
+```yaml
+# ./docker-compose.yml
+version: '3'
+
+services:
+  app:
+    image: adhocore/lemp
+    # For different app you can use different names. (eg: )
+    container_name: some-app
+    volumes:
+      - db_data:/var/lib/mysql
+      # Here you can also volume php ini settings
+      # - /path/to/zz-overrides:/usr/local/etc/php/conf.d/zz-overrides.ini
+    ports:
+      - 8080:80
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecurepwd
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: dbusr
+      MYSQL_PASSWORD: securepwd
+      MYSQL_HOST: localhost:3306
+
+volumes:
+  db_data: {}
+```
+
+Then all you gotta do is:
+
+```sh
+# To start
+docker-compose up -d
+
+# To stop
+docker-compose up -d
+```
+
+As you can see using compose is very neat, intuitive and easy.
+Plus you can already set the volumes and ports there, so you dont have to type in terminal.
+
 ### MySQL Default credentials
 
 - **root password**: 1234567890 (if `MYSQL_ROOT_PASSWORD` is not passed)
@@ -104,9 +148,7 @@ openssl
 pcre
 PDO
 pdo_mysql
-pdo_pgsql
 pdo_sqlite
-pgsql
 Phar
 posix
 readline
