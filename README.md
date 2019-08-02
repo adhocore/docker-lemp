@@ -11,7 +11,7 @@ The docker container `adhocore/lemp` is composed of:
 Name   | Version | Port
 -------|---------|------
 Alpine | 3.8     | -
-PHP    | 7.3.1   | 9000
+PHP    | 7.3.7   | 9000
 MySQL`*` | 5.7     | 3306
 nginx  | 1.14.2  | 80
 
@@ -161,6 +161,7 @@ sodium
 SPL
 sqlite3
 standard
+tideways
 tokenizer
 xml
 xmlreader
@@ -169,3 +170,6 @@ Zend OPcache
 zip
 zlib
 ```
+
+Read more about [tideways](https://github.com/tideways/php-xhprof-extension)
+
