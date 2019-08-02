@@ -1,4 +1,4 @@
-FROM php:7.3.1-fpm-alpine
+FROM php:7.3.7-fpm-alpine
 
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
@@ -12,6 +12,13 @@ RUN \
     && pecl install $PECL_EXTENSIONS \
     && docker-php-ext-enable $PECL_EXTENSIONS \
     && docker-php-ext-install $PHP_EXTENSIONS \
+    # tideways_xhprof
+    && curl -sSLo /tmp/xhprof.tar.gz https://github.com/tideways/php-xhprof-extension/archive/v4.1.7.tar.gz \
+      && tar xzf /tmp/xhprof.tar.gz && cd php-xhprof-extension-4.1.7 \
+      && phpize && ./configure \
+      && make && make install \
+      && docker-php-ext-enable tideways \
+      && cd .. && rm -rf php-xhprof-extension-4.1.7 /tmp/xhprof.tar.gz \
     && docker-php-source delete
 
 RUN curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
