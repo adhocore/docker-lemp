@@ -8,7 +8,7 @@ if [ ! -f "/run/mysqld/.init" ]; then
   mkdir -p /run/mysqld /var/lib/mysql
   chown mysql:mysql -R /run/mysqld /var/lib/mysql
 
-  mysql_install_db --user=mysql
+  mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
   SQL=`mktemp`
   if [ -n "$MYSQL_DATABASE" ]; then
