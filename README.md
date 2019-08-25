@@ -97,7 +97,7 @@ Then all you gotta do is:
 docker-compose up -d
 
 # To stop
-docker-compose up -d
+docker-compose stop
 ```
 
 As you can see using compose is very neat, intuitive and easy.
@@ -108,14 +108,22 @@ Plus you can already set the volumes and ports there, so you dont have to type i
 - **root password**: 1234567890 (if `MYSQL_ROOT_PASSWORD` is not passed)
 - **user password**: 123456 (if `MYSQL_USER` is passed but `MYSQL_PASSWORD` is not)
 
+#### Accessing DB
+In PHP app you can access MySQL db via PDO like so:
+```php
+$db = new PDO(
+    'mysql:unix_socket=/run/mysqld/mysqld.sock;dbname=' . getenv('MYSQL_DATABASE'),
+    getenv('MYSQL_USER'),
+    getenv('MYSQL_PASSWORD')
+);
+```
 
 ### Nginx
 
 URL rewrite is already enabled for you.
 Either your app has `public/` folder or not, the rewrite adapts automatically.
 
-
-#### PHP
+### PHP
 
 The following PHP extensions are installed:
 
