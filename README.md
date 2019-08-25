@@ -85,7 +85,6 @@ services:
       MYSQL_DATABASE: appdb
       MYSQL_USER: dbusr
       MYSQL_PASSWORD: securepwd
-      MYSQL_HOST: localhost:3306
 
 volumes:
   db_data: {}
