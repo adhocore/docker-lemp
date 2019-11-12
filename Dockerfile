@@ -1,25 +1,43 @@
-FROM php:7.3.7-fpm-alpine
+FROM php:7.3.11-fpm-alpine3.10
 
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
+ENV XHPROF_VERSION=5.0.1
+ENV PHALCON_VERSION=3.4.4
+ENV PECL_EXTENSIONS="redis yaml imagick xdebug"
+ENV PHP_EXTENSIONS="bcmath bz2 calendar exif gd gettext gmp intl ldap mysqli opcache pdo_mysql soap zip"
+
 RUN \
-  PECL_EXTENSIONS="redis"; \
-  PHP_EXTENSIONS="zip mysqli pdo_mysql opcache bcmath gd gmp intl ldap exif soap bz2 calendar"; \
-  apk add -U --virtual temp autoconf g++ file re2c make zlib-dev libtool pcre-dev libxml2-dev bzip2-dev \
-  && apk add openldap-dev libpng-dev gmp-dev icu-dev libzip-dev \
-  && docker-php-source extract \
+  # deps
+  apk add -U --virtual temp \
+    autoconf g++ file re2c make zlib-dev libtool pcre-dev libxml2-dev bzip2-dev libzip-dev \
+      icu-dev gettext-dev imagemagick-dev openldap-dev libpng-dev gmp-dev yaml-dev \
+    && apk add icu gettext imagemagick libzip libxml2-utils openldap yaml
+
+RUN \
+  # php extensions
+  docker-php-source extract \
     && pecl channel-update pecl.php.net \
     && pecl install $PECL_EXTENSIONS \
-    && docker-php-ext-enable $PECL_EXTENSIONS \
-    && docker-php-ext-install $PHP_EXTENSIONS \
+    && docker-php-ext-enable ${PECL_EXTENSIONS//[-\.0-9]/} \
+    && docker-php-ext-install $PHP_EXTENSIONS
+
+RUN \
     # tideways_xhprof
-    && curl -sSLo /tmp/xhprof.tar.gz https://github.com/tideways/php-xhprof-extension/archive/v4.1.7.tar.gz \
-      && tar xzf /tmp/xhprof.tar.gz && cd php-xhprof-extension-4.1.7 \
+    curl -sSLo /tmp/xhprof.tar.gz https://github.com/tideways/php-xhprof-extension/archive/v$XHPROF_VERSION.tar.gz \
+      && tar xzf /tmp/xhprof.tar.gz && cd php-xhprof-extension-$XHPROF_VERSION \
       && phpize && ./configure \
       && make && make install \
-      && docker-php-ext-enable tideways \
-      && cd .. && rm -rf php-xhprof-extension-4.1.7 /tmp/xhprof.tar.gz \
+      && docker-php-ext-enable tideways_xhprof \
+      && cd .. && rm -rf php-xhprof-extension-$XHPROF_VERSION /tmp/xhprof.tar.gz \
     && docker-php-source delete
+
+RUN \
+  # phalcon
+  curl -sSLo /tmp/phalcon.tar.gz https://codeload.github.com/phalcon/cphalcon/tar.gz/v$PHALCON_VERSION \
+    && cd /tmp/ && tar xvzf phalcon.tar.gz \
+    && cd cphalcon-$PHALCON_VERSION/build && sh install \
+    && echo "extension=phalcon.so" > /usr/local/etc/php/conf.d/docker-php-ext-phalcon.ini
 
 RUN curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
