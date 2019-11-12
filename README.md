@@ -10,9 +10,9 @@ The docker container `adhocore/lemp` is composed of:
 
 Name   | Version | Port
 -------|---------|------
-Alpine | 3.8     | -
-PHP    | 7.3.7   | 9000
-MySQL`*` | 5.7     | 3306
+Alpine | 3.10    | -
+PHP    | 7.3.11  | 9000
+MySQL`*` | 5.7   | 3306
 nginx  | 1.14.2  | 80
 
 > `*`: It is actually MariaDB.
@@ -141,9 +141,11 @@ fileinfo
 filter
 ftp
 gd
+gettext
 gmp
 hash
 iconv
+imagick
 intl
 json
 ldap
@@ -156,6 +158,7 @@ pcre
 PDO
 pdo_mysql
 pdo_sqlite
+phalcon
 Phar
 posix
 readline
@@ -168,15 +171,16 @@ sodium
 SPL
 sqlite3
 standard
-tideways
+tideways_xhprof
 tokenizer
+xdebug
 xml
 xmlreader
 xmlwriter
+yaml
 Zend OPcache
 zip
 zlib
 ```
 
-Read more about [tideways](https://github.com/tideways/php-xhprof-extension)
-
+Read more about [tideways](https://github.com/tideways/php-xhprof-extension).
