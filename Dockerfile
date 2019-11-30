@@ -11,7 +11,7 @@ RUN \
   apk add -U --virtual temp \
     autoconf g++ file re2c make zlib-dev libtool pcre-dev libxml2-dev bzip2-dev libzip-dev \
       icu-dev gettext-dev imagemagick-dev openldap-dev libpng-dev gmp-dev yaml-dev \
-    && apk add icu gettext imagemagick libzip libxml2-utils openldap yaml
+    && apk add icu gettext imagemagick libzip libbz2 libxml2-utils openldap-back-mdb openldap yaml
 
 RUN \
   # php extensions
