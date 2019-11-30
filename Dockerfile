@@ -1,9 +1,8 @@
-FROM php:7.3.11-fpm-alpine3.10
+FROM php:7.4.0-fpm-alpine3.10
 
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
 ENV XHPROF_VERSION=5.0.1
-ENV PHALCON_VERSION=3.4.4
 ENV PECL_EXTENSIONS="redis yaml imagick xdebug"
 ENV PHP_EXTENSIONS="bcmath bz2 calendar exif gd gettext gmp intl ldap mysqli opcache pdo_mysql soap zip"
 
@@ -32,13 +31,6 @@ RUN \
       && cd .. && rm -rf php-xhprof-extension-$XHPROF_VERSION /tmp/xhprof.tar.gz \
     && docker-php-source delete
 
-RUN \
-  # phalcon
-  curl -sSLo /tmp/phalcon.tar.gz https://codeload.github.com/phalcon/cphalcon/tar.gz/v$PHALCON_VERSION \
-    && cd /tmp/ && tar xvzf phalcon.tar.gz \
-    && cd cphalcon-$PHALCON_VERSION/build && sh install \
-    && echo "extension=phalcon.so" > /usr/local/etc/php/conf.d/docker-php-ext-phalcon.ini
-
 RUN curl -sSL https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN apk add -U nano
@@ -57,16 +49,17 @@ RUN apk add supervisor
 RUN apk del temp \
   && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
 
-COPY main.sh /entrypoint.sh
+COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini /etc/supervisor.d/
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+COPY php/index.php /var/www/html/index.php
 
 # This doesnt seem to work only by making original file executable
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 9000 3306 80
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 CMD ["supervisord", "-n", "-j", "/supervisord.pid"]
