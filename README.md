@@ -11,7 +11,7 @@ The docker container `adhocore/lemp` is composed of:
 Name   | Version | Port
 -------|---------|------
 Alpine | 3.10    | -
-PHP    | 7.3.11  | 9000
+PHP    | 7.4.0   | 9000
 MySQL`*` | 5.7   | 3306
 nginx  | 1.14.2  | 80
 
@@ -183,4 +183,5 @@ zlib
 ```
 
 `phalcon` has been removed as it conflicted with `pcre` in `PHP7.4`.
+
 Read more about [tideways](https://github.com/tideways/php-xhprof-extension).
