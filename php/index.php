@@ -9,9 +9,9 @@ if (is_file(__DIR__ . '/public/index.php')) {
 echo "<p>If you see this, that means it works!</p>\n";
 
 $db = new PDO(
-    'mysql:unix_socket=/run/mysqld/mysqld.sock;dbname=' . getenv('MYSQL_DATABASE'),
-    getenv('MYSQL_USER'),
-    getenv('MYSQL_PASSWORD')
+    'mysql:unix_socket=/run/mysqld/mysqld.sock;dbname=' . (getenv('MYSQL_DATABASE') ?: 'test'),
+    getenv('MYSQL_USER') ?: 'root',
+    getenv('MYSQL_PASSWORD') ?: '1234567890'
 );
 
 echo "<p>MySQL NOW(): " . $db->query('SELECT NOW() FROM DUAL')->fetchColumn() . "</p>\n";
