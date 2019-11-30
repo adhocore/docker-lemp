@@ -158,7 +158,6 @@ pcre
 PDO
 pdo_mysql
 pdo_sqlite
-phalcon
 Phar
 posix
 readline
@@ -183,4 +182,5 @@ zip
 zlib
 ```
 
+`phalcon` has been removed as it conflicted with `pcre` in `PHP7.4`.
 Read more about [tideways](https://github.com/tideways/php-xhprof-extension).
