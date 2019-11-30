@@ -3,6 +3,12 @@
 MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-1234567890}
 MYSQL_PASSWORD=${MYSQL_PASSWORD:-123456}
 
+# init nginx
+if [ ! -d "/var/tmp/nginx/client_body" ]; then
+  mkdir -p /run/nginx /var/tmp/nginx/client_body
+  chown nginx:nginx -R /run/nginx /var/tmp/nginx/
+fi
+
 # init mysql
 if [ ! -f "/run/mysqld/.init" ]; then
   mkdir -p /run/mysqld /var/lib/mysql
@@ -31,12 +37,6 @@ if [ ! -f "/run/mysqld/.init" ]; then
 
   rm -rf ~/.mysql_history ~/.ash_history $SQL
   touch /run/mysqld/.init
-fi
-
-# init nginx
-if [ ! -d "/var/tmp/nginx/client_body" ]; then
-  mkdir -p /run/nginx /var/tmp/nginx/client_body
-  chown nginx:nginx -R /run/nginx /var/tmp/nginx/
 fi
 
 exec "$@"
