@@ -13,7 +13,7 @@ Name   | Version | Port
 Alpine | 3.10    | -
 PHP    | 7.4.0   | 9000
 MySQL`*` | 5.7   | 3306
-nginx  | 1.14.2  | 80
+nginx  | 1.16.1  | 80
 
 > `*`: It is actually MariaDB.
 
@@ -24,16 +24,16 @@ Also recommended to install [docker-compose](https://docs.docker.com/compose/ins
 
 ```sh
 # pull latest image
-docker pull adhocore/lemp
+docker pull adhocore/lemp:7.4
 
 # Go to your project root then run
-docker run -p 8080:80 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp
+docker run -p 8080:80 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:7.4
 
 # In windows, you would use %cd% instead of `pwd`
-docker run -p 8080:80 -v %cd%:/var/www/html --name lemp -d adhocore/lemp
+docker run -p 8080:80 -v %cd%:/var/www/html --name lemp -d adhocore/lemp:7.4
 
 # If you want to setup MySQL credentials, pass env vars
-docker run -p 8080:80 -v `pwd`:/var/www/html -e MYSQL_ROOT_PASSWORD=1234567890 -e MYSQL_USER=dbuser -e MYSQL_PASSWORD=123456 -e MYSQL_DATABASE=appdb --name lemp -d adhocore/lemp
+docker run -p 8080:80 -v `pwd`:/var/www/html -e MYSQL_ROOT_PASSWORD=1234567890 -e MYSQL_USER=dbuser -e MYSQL_PASSWORD=123456 -e MYSQL_DATABASE=appdb --name lemp -d adhocore/lemp:7.4
 ```
 
 After running container as above, you will be able to browse [localhost:8080](http://localhost:8080)!
@@ -58,7 +58,7 @@ docker start lemp
 
 > **PRO** If you develop multiple apps, you can create multiple lemp containers with different names.
 >
-> eg: `docker run -p 8081:80 -v `pwd`:/var/www/html --name new-lemp -d adhocore/lemp`
+> eg: `docker run -p 8081:80 -v `pwd`:/var/www/html --name new-lemp -d adhocore/lemp:7.4`
 
 
 ## With Docker compose
@@ -71,7 +71,7 @@ version: '3'
 
 services:
   app:
-    image: adhocore/lemp
+    image: adhocore/lemp:7.4
     # For different app you can use different names. (eg: )
     container_name: some-app
     volumes:
