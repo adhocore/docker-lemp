@@ -15,3 +15,10 @@ $db = new PDO(
 );
 
 echo "<p>MySQL NOW(): " . $db->query('SELECT NOW() FROM DUAL')->fetchColumn() . "</p>\n";
+
+// -----
+echo '<pre>';
+echo 'PHP: ', phpversion(), "\n";
+echo "Extensions:\n";
+echo implode("\n - ", get_loaded_extensions()), "\n";
+echo '</pre>';
