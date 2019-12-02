@@ -8,12 +8,13 @@ It is quick jumpstart for onboarding you into docker based development.
 
 The docker container `adhocore/lemp` is composed of:
 
-Name   | Version | Port
--------|---------|------
-Alpine | 3.10    | -
-PHP    | 7.4.0   | 9000
-MySQL`*` | 5.7   | 3306
-nginx  | 1.16.1  | 80
+Name    | Version | Port
+--------|---------|------
+Alpine  | 3.10    | -
+PHP     | 7.4.0   | 9000
+MySQL`*`| 5.7     | 3306
+nginx   | 1.16.1  | 80
+phalcon | 4.0.0rc3| -
 
 > `*`: It is actually MariaDB.
 
@@ -158,8 +159,10 @@ pcre
 PDO
 pdo_mysql
 pdo_sqlite
+phalcon
 Phar
 posix
+psr
 readline
 redis
 Reflection
@@ -182,6 +185,7 @@ zip
 zlib
 ```
 
-`phalcon` has been removed as it conflicted with `pcre` in `PHP7.4`.
+`phalcon` web framework `4.0.0-rc.3` has been installed.
 
-Read more about [tideways](https://github.com/tideways/php-xhprof-extension).
+Read more about [tideways](https://github.com/tideways/php-xhprof-extension),
+[phalcon](https://github.com/phalcon/cphalcon) and [psr](https://github.com/jbboehr/php-psr).
