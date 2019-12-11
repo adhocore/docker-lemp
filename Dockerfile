@@ -28,6 +28,12 @@ COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini pgsql/postgres.ini /etc/su
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
+# adminer
+RUN \
+  mkdir -p /var/www/adminer \
+  && curl -sSLo /var/www/adminer/index.php $(curl -s https://api.github.com/repos/vrana/adminer/releases/latest \
+    | grep 'browser_download_url.*\d-en.php' -m 1 | cut -d : -f 2,3 | tr -d \" \ )
+
 # resource
 COPY php/index.php /var/www/html/index.php
 
