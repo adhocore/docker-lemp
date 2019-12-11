@@ -9,7 +9,7 @@ if (is_file(__DIR__ . '/public/index.php')) {
 echo "<p>If you see this, that means it works!</p>\n";
 
 $db = new PDO(
-    'mysql:unix_socket=/run/mysqld/mysqld.sock;dbname=' . (getenv('MYSQL_DATABASE') ?: 'test'),
+    'mysql:host=127.0.0.1;port=3306;dbname=' . (getenv('MYSQL_DATABASE') ?: 'test'),
     getenv('MYSQL_USER') ?: 'root',
     getenv('MYSQL_PASSWORD') ?: '1234567890'
 );

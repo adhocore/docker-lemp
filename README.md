@@ -113,7 +113,7 @@ Plus you can already set the volumes and ports there, so you dont have to type i
 In PHP app you can access MySQL db via PDO like so:
 ```php
 $db = new PDO(
-    'mysql:unix_socket=/run/mysqld/mysqld.sock;dbname=' . getenv('MYSQL_DATABASE'),
+    'mysql:host=127.0.0.1;port=3306;dbname=' . getenv('MYSQL_DATABASE'),
     getenv('MYSQL_USER'),
     getenv('MYSQL_PASSWORD')
 );
