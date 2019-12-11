@@ -8,8 +8,11 @@ RUN apk add -U nano
 # mysql
 RUN apk add mysql mysql-client
 
+# pgsql
+RUN apk add postgresql
+
+# nginx
 RUN \
-  # nginx
   addgroup -S nginx \
     && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
     && mkdir -p /run/nginx /var/tmp/nginx/client_body \
@@ -21,9 +24,11 @@ RUN apk add supervisor
 
 # supervisor config
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini /etc/supervisor.d/
+COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini pgsql/postgres.ini /etc/supervisor.d/
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+
+# resource
 COPY php/index.php /var/www/html/index.php
 
 # This doesnt seem to work only by making original file executable
@@ -33,7 +38,7 @@ RUN chmod +x /docker-entrypoint.sh
 RUN \
   rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
 
-EXPOSE 9000 3306 80
+EXPOSE 9000 5432 3306 80
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
