@@ -13,6 +13,7 @@ fi
 if [ ! -f "/run/mysqld/.init" ]; then
   mkdir -p /run/mysqld /var/lib/mysql
   chown mysql:mysql -R /run/mysqld /var/lib/mysql
+  sed -i -e 's/skip-networking/skip-networking=0/' /etc/my.cnf.d/mariadb-server.cnf
 
   mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
