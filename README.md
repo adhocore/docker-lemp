@@ -8,13 +8,14 @@ It is quick jumpstart for onboarding you into docker based development.
 
 The docker container `adhocore/lemp` is composed of:
 
-Name    | Version | Port
---------|---------|------
-Alpine  | 3.10    | -
-PHP     | 7.4.0   | 9000
-MySQL`*`| 5.7     | 3306
-nginx   | 1.16.1  | 80
-phalcon | 4.0.0rc3| -
+Name        | Version    | Port
+------------|------------|------
+Alpine      | 3.10       | -
+PHP         | 7.4.0      | 9000
+MySQL`*`    | 5.7        | 3306
+PostgreSQL  | 11.6       | 5432
+nginx       | 1.16.1     | 80
+phalcon     | 4.0.0rc3   | -
 
 > `*`: It is actually MariaDB.
 
@@ -34,7 +35,11 @@ docker run -p 8080:80 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:7.4
 docker run -p 8080:80 -v %cd%:/var/www/html --name lemp -d adhocore/lemp:7.4
 
 # If you want to setup MySQL credentials, pass env vars
-docker run -p 8080:80 -v `pwd`:/var/www/html -e MYSQL_ROOT_PASSWORD=1234567890 -e MYSQL_USER=dbuser -e MYSQL_PASSWORD=123456 -e MYSQL_DATABASE=appdb --name lemp -d adhocore/lemp:7.4
+docker run -p 8080:80 -v `pwd`:/var/www/html \
+  -e MYSQL_ROOT_PASSWORD=1234567890 -e MYSQL_DATABASE=appdb \
+  -e MYSQL_USER=dbuser -e MYSQL_PASSWORD=123456 \
+  --name lemp -d adhocore/lemp:7.4
+  # for postgres you can pass in similar env as for mysql but with PGSQL_ prefix
 ```
 
 After running container as above, you will be able to browse [localhost:8080](http://localhost:8080)!
@@ -86,6 +91,7 @@ services:
       MYSQL_DATABASE: appdb
       MYSQL_USER: dbusr
       MYSQL_PASSWORD: securepwd
+      # for postgres you can pass in similar env as for mysql but with PGSQL_ prefix
 
 volumes:
   db_data: {}
@@ -116,6 +122,15 @@ $db = new PDO(
     'mysql:host=127.0.0.1;port=3306;dbname=' . getenv('MYSQL_DATABASE'),
     getenv('MYSQL_USER'),
     getenv('MYSQL_PASSWORD')
+);
+```
+
+You can access PgSQL db via PDO like so:
+```php
+$pdb = new PDO(
+    'pgsql:host=127.0.0.1;port=5432;dbname=' . getenv('PGSQL_DATABASE'),
+    getenv('PGSQL_USER'),
+    getenv('PGSQL_PASSWORD')
 );
 ```
 
