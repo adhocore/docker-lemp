@@ -44,6 +44,8 @@ docker run -p 8080:80 -v `pwd`:/var/www/html \
 
 After running container as above, you will be able to browse [localhost:8080](http://localhost:8080)!
 
+The database adminer will be available at [localhost:8080/adminer](http://localhost:8080/adminer).
+
 ### Stop container
 
 To stop the container, you would run:
