@@ -15,6 +15,7 @@ PHP         | 7.4.0      | 9000
 MySQL`*`    | 5.7        | 3306
 PostgreSQL  | 11.6       | 5432
 nginx       | 1.16.1     | 80
+mailcatcher | 0.7.1      | 88
 phalcon     | 4.0.0rc3   | -
 
 > `*`: It is actually MariaDB.
@@ -29,13 +30,13 @@ Also recommended to install [docker-compose](https://docs.docker.com/compose/ins
 docker pull adhocore/lemp:7.4
 
 # Go to your project root then run
-docker run -p 8080:80 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:7.4
+docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:7.4
 
 # In windows, you would use %cd% instead of `pwd`
-docker run -p 8080:80 -v %cd%:/var/www/html --name lemp -d adhocore/lemp:7.4
+docker run -p 8080:80 -p 8888:88 -v %cd%:/var/www/html --name lemp -d adhocore/lemp:7.4
 
 # If you want to setup MySQL credentials, pass env vars
-docker run -p 8080:80 -v `pwd`:/var/www/html \
+docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html \
   -e MYSQL_ROOT_PASSWORD=1234567890 -e MYSQL_DATABASE=appdb \
   -e MYSQL_USER=dbuser -e MYSQL_PASSWORD=123456 \
   --name lemp -d adhocore/lemp:7.4
@@ -45,6 +46,8 @@ docker run -p 8080:80 -v `pwd`:/var/www/html \
 After running container as above, you will be able to browse [localhost:8080](http://localhost:8080)!
 
 The database adminer will be available at [localhost:8080/adminer](http://localhost:8080/adminer).
+
+The mailcatcher will be available at [localhost:8888](http://localhost:8888) which displays mails in realtime.
 
 ### Stop container
 
@@ -206,3 +209,15 @@ zlib
 
 Read more about [tideways](https://github.com/tideways/php-xhprof-extension),
 [phalcon](https://github.com/phalcon/cphalcon) and [psr](https://github.com/jbboehr/php-psr).
+
+### Testing mailcatcher
+
+```sh
+# open shell
+docker exec -it lemp sh
+
+# send test mail
+echo "\n" | sendmail -S 0 test@localhost
+```
+
+Then you will see the new mail in realtime at http://localhost:8888.
