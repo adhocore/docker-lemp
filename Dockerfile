@@ -24,7 +24,7 @@ RUN apk add supervisor
 
 # supervisor config
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini pgsql/postgres.ini /etc/supervisor.d/
+COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini pgsql/postgres.ini mail/mailcatcher.ini /etc/supervisor.d/
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
@@ -33,6 +33,11 @@ RUN \
   mkdir -p /var/www/adminer \
   && curl -sSLo /var/www/adminer/index.php $(curl -s https://api.github.com/repos/vrana/adminer/releases/latest \
     | grep 'browser_download_url.*\d-en.php' -m 1 | cut -d : -f 2,3 | tr -d \" \ )
+
+# mailcatcher
+COPY --from=tophfr/mailcatcher /usr/lib/libruby.so.2.5 /usr/lib/libruby.so.2.5
+COPY --from=tophfr/mailcatcher /usr/lib/ruby/ /usr/lib/ruby/
+COPY --from=tophfr/mailcatcher /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
 
 # resource
 COPY php/index.php /var/www/html/index.php
@@ -44,7 +49,7 @@ RUN chmod +x /docker-entrypoint.sh
 RUN \
   rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
 
-EXPOSE 9000 5432 3306 80
+EXPOSE 9000 5432 3306 88 80
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
