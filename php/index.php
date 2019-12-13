@@ -1,11 +1,5 @@
 <?php
 
-if (is_file(__DIR__ . '/public/index.php')) {
-    require __DIR__ . '/public/index.php';
-
-    return;
-}
-
 $works = "<p>If you see this, that means it works!</p>\n\n";
 echo PHP_SAPI == 'cli' ? strip_tags($works) : $works;
 
