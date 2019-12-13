@@ -11,6 +11,9 @@ RUN apk add mysql mysql-client
 # pgsql
 RUN apk add postgresql
 
+# redis
+RUN apk add redis
+
 # nginx
 RUN \
   addgroup -S nginx \
@@ -24,7 +27,7 @@ RUN apk add supervisor
 
 # supervisor config
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini pgsql/postgres.ini mail/mailcatcher.ini /etc/supervisor.d/
+COPY mysql/mysqld.ini nginx/nginx.ini php/php-fpm.ini pgsql/postgres.ini mail/mailcatcher.ini redis/redis-server.ini /etc/supervisor.d/
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
@@ -49,7 +52,7 @@ RUN chmod +x /docker-entrypoint.sh
 RUN \
   rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
 
-EXPOSE 9000 5432 3306 88 80
+EXPOSE 9000 6379 5432 3306 88 80
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
