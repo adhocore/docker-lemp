@@ -2,7 +2,7 @@
 
 > Do not use in Production.
 
-A minimal single container LEMP stack for local development.
+A minimal single container LEMP full stack for local development.
 
 It is quick jumpstart for onboarding you into docker based development.
 
@@ -10,12 +10,13 @@ The docker container `adhocore/lemp` is composed of:
 
 Name        | Version    | Port
 ------------|------------|------
-Alpine      | 3.10       | -
+alpine      | 3.10       | -
 PHP         | 7.4.0      | 9000
 MySQL`*`    | 5.7        | 3306
 PostgreSQL  | 11.6       | 5432
 nginx       | 1.16.1     | 80
 mailcatcher | 0.7.1      | 88
+redis       | 5.0.5      | 6379
 phalcon     | 4.0.0rc3   | -
 
 > `*`: It is actually MariaDB.
@@ -221,3 +222,9 @@ echo "\n" | sendmail -S 0 test@localhost
 ```
 
 Then you will see the new mail in realtime at http://localhost:8888.
+
+Or you can see check it in shell as well:
+```sh
+
+curl 0:88/messages
+```
