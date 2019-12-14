@@ -2,6 +2,9 @@ FROM adhocore/phpfpm:7.4
 
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
+ENV ADMINER_VERSION=4.7.5
+ENV MAILCATHCHER_VERSION=0.7.1
+
 # nano
 RUN apk add -U nano
 
@@ -18,8 +21,6 @@ RUN apk add redis
 RUN \
   addgroup -S nginx \
     && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
-    && mkdir -p /run/nginx /var/tmp/nginx/client_body \
-    && chown nginx:nginx -R /run/nginx /var/tmp/nginx/ \
     && apk add nginx
 
 # supervisor
@@ -34,18 +35,17 @@ COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 # adminer
 RUN \
   mkdir -p /var/www/adminer \
-  && curl -sSLo /var/www/adminer/index.php $(curl -s https://api.github.com/repos/vrana/adminer/releases/latest \
-    | grep 'browser_download_url.*\d-en.php' -m 1 | cut -d : -f 2,3 | tr -d \" \ )
+  && curl -sSLo /var/www/adminer/index.php "https://github.com/vrana/adminer/releases/download/v$ADMINER_VERSION/adminer-$ADMINER_VERSION-en.php"
 
 # mailcatcher
-COPY --from=tophfr/mailcatcher /usr/lib/libruby.so.2.5 /usr/lib/libruby.so.2.5
-COPY --from=tophfr/mailcatcher /usr/lib/ruby/ /usr/lib/ruby/
-COPY --from=tophfr/mailcatcher /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
+COPY --from=tophfr/mailcatcher:$MAILCATHCHER_VERSION /usr/lib/libruby.so.2.5 /usr/lib/libruby.so.2.5
+COPY --from=tophfr/mailcatcher:$MAILCATHCHER_VERSION /usr/lib/ruby/ /usr/lib/ruby/
+COPY --from=tophfr/mailcatcher:$MAILCATHCHER_VERSION /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
 
 # resource
 COPY php/index.php /var/www/html/index.php
 
-# This doesnt seem to work only by making original file executable
+# entrypoint
 RUN chmod +x /docker-entrypoint.sh
 
 # cleanup
