@@ -3,7 +3,6 @@ FROM adhocore/phpfpm:7.4
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
 ENV ADMINER_VERSION=4.7.5
-ENV MAILCATHCHER_VERSION=0.7.1
 
 # nano
 RUN apk add -U nano
@@ -38,9 +37,9 @@ RUN \
   && curl -sSLo /var/www/adminer/index.php "https://github.com/vrana/adminer/releases/download/v$ADMINER_VERSION/adminer-$ADMINER_VERSION-en.php"
 
 # mailcatcher
-COPY --from=tophfr/mailcatcher:$MAILCATHCHER_VERSION /usr/lib/libruby.so.2.5 /usr/lib/libruby.so.2.5
-COPY --from=tophfr/mailcatcher:$MAILCATHCHER_VERSION /usr/lib/ruby/ /usr/lib/ruby/
-COPY --from=tophfr/mailcatcher:$MAILCATHCHER_VERSION /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
+COPY --from=tophfr/mailcatcher /usr/lib/libruby.so.2.5 /usr/lib/libruby.so.2.5
+COPY --from=tophfr/mailcatcher /usr/lib/ruby/ /usr/lib/ruby/
+COPY --from=tophfr/mailcatcher /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
 
 # resource
 COPY php/index.php /var/www/html/index.php
