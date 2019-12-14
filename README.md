@@ -70,7 +70,7 @@ docker start lemp
 
 > **PRO** If you develop multiple apps, you can create multiple lemp containers with different names.
 >
-> eg: `docker run -p 8081:80 -v `pwd`:/var/www/html --name new-lemp -d adhocore/lemp:7.4`
+> eg: `docker run -p 8081:80 -v $(pwd):/var/www/html --name new-lemp -d adhocore/lemp:7.4`
 
 
 ## With Docker compose
@@ -121,7 +121,14 @@ Plus you can already set the volumes and ports there, so you dont have to type i
 - **root password**: 1234567890 (if `MYSQL_ROOT_PASSWORD` is not passed)
 - **user password**: 123456 (if `MYSQL_USER` is passed but `MYSQL_PASSWORD` is not)
 
+### PgSQL Default credentials
+
+- **postgres password**: 1234567890 (if `PGSQL_ROOT_PASSWORD` is not passed)
+- **user password**: 123456 (if `PGSQL_USER` is passed but `PGSQL_PASSWORD` is not)
+
+
 #### Accessing DB
+
 In PHP app you can access MySQL db via PDO like so:
 ```php
 $db = new PDO(
@@ -143,6 +150,7 @@ $pdb = new PDO(
 ### Nginx
 
 URL rewrite is already enabled for you.
+
 Either your app has `public/` folder or not, the rewrite adapts automatically.
 
 ### PHP
@@ -150,60 +158,22 @@ Either your app has `public/` folder or not, the rewrite adapts automatically.
 The following PHP extensions are installed:
 
 ```
-bcmath
-bz2
-calendar
-Core
-ctype
-curl
-date
-dom
-exif
-fileinfo
-filter
-ftp
-gd
-gettext
-gmp
-hash
-iconv
-imagick
-intl
-json
-ldap
-libxml
-mbstring
-mysqli
-mysqlnd
-openssl
-pcre
-PDO
-pdo_mysql
-pdo_sqlite
-phalcon
-Phar
-posix
-psr
-readline
-redis
-Reflection
-session
-SimpleXML
-soap
-sodium
-SPL
-sqlite3
-standard
-tideways_xhprof
-tokenizer
-xdebug
-xml
-xmlreader
-xmlwriter
-yaml
-Zend OPcache
-zip
-zlib
+- Core              - date              - libxml            - openssl           
+- pcre              - sqlite3           - zlib              - ctype             
+- curl              - dom               - fileinfo          - filter            
+- ftp               - hash              - iconv             - json              
+- mbstring          - SPL               - PDO               - pdo_sqlite        
+- bz2               - posix             - readline          - Reflection        
+- session           - SimpleXML         - standard          - tokenizer         
+- xml               - xmlreader         - xmlwriter         - mysqlnd           
+- cgi-fcgi          - ast               - bcmath            - Phar              
+- calendar          - exif              - gd                - gettext           
+- gmp               - igbinary          - imagick           - intl              
+- ldap              - mysqli            - pcntl             - pdo_mysql         
+- pdo_pgsql         - pgsql             - psr               - phalcon           
+- redis             - soap              - sodium            - tideways_xhprof   
+- uuid              - yaml              - zip               - Zend OPcache      
+- xdebug
 ```
 
 `phalcon` web framework `4.0.0-rc.3` has been installed.
