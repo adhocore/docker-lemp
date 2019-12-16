@@ -7,6 +7,9 @@ ENV ADMINER_VERSION=4.7.5
 # nano
 RUN apk add -U nano
 
+# phpfpm
+COPY php/php-fpm.ini /etc/supervisor.d/
+
 # mysql
 RUN apk add mysql mysql-client
 COPY mysql/mysqld.ini /etc/supervisor.d/
