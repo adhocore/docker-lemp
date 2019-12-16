@@ -20,8 +20,13 @@ if (PHP_SAPI !== 'cli') echo "<pre>\n";
 echo 'MySQL NOW(): ', $mdb->query('SELECT NOW()')->fetchColumn() . "\n";
 echo 'PgSQL NOW(): ', $pdb->query('SELECT NOW()')->fetchColumn() . "\n\n";
 echo 'PHP: ', phpversion(), "\n\n";
-echo "Extensions: ", count($extensions = get_loaded_extensions()), "\n\n";
 
+$extensions = get_loaded_extensions();
+$extensions = array_map('strtolower', $extensions);
+
+echo "Extensions: ", count($extensions), "\n\n";
+
+sort($extensions);
 foreach (array_chunk($extensions, 4) as $exts) {
     foreach ($exts as $ext) {
         echo '- ' . str_pad($ext, 18, ' ', STR_PAD_RIGHT);
