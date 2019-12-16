@@ -17,9 +17,10 @@ PostgreSQL  | 11.6       | 5432
 nginx       | 1.16.1     | 80
 mailcatcher | 0.7.1      | 88
 redis       | 5.0.5      | 6379
+beanstalkd  |            | 11300
 phalcon     | 4.0.0rc3   | -
 
-> `*`: It is actually MariaDB.
+> `*`: It is actually MariaDB 10.3.20.
 
 ## Usage
 
@@ -46,7 +47,8 @@ docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html \
 
 After running container as above, you will be able to browse [localhost:8080](http://localhost:8080)!
 
-The database adminer will be available at [localhost:8080/adminer](http://localhost:8080/adminer).
+The database adminer will be available for [mysql](http://localhost:8080/adminer?server=127.0.0.1%3A3306&username=root)
+and [postgres](http://localhost:8080/adminer?pgsql=127.0.0.1%3A5432&username=postgres).
 
 The mailcatcher will be available at [localhost:8888](http://localhost:8888) which displays mails in realtime.
 
@@ -158,22 +160,25 @@ Either your app has `public/` folder or not, the rewrite adapts automatically.
 The following PHP extensions are installed:
 
 ```
-- Core              - date              - libxml            - openssl           
-- pcre              - sqlite3           - zlib              - ctype             
-- curl              - dom               - fileinfo          - filter            
-- ftp               - hash              - iconv             - json              
-- mbstring          - SPL               - PDO               - pdo_sqlite        
-- bz2               - posix             - readline          - Reflection        
-- session           - SimpleXML         - standard          - tokenizer         
-- xml               - xmlreader         - xmlwriter         - mysqlnd           
-- cgi-fcgi          - ast               - bcmath            - Phar              
-- calendar          - exif              - gd                - gettext           
-- gmp               - igbinary          - imagick           - intl              
-- ldap              - mysqli            - pcntl             - pdo_mysql         
-- pdo_pgsql         - pgsql             - psr               - phalcon           
-- redis             - soap              - sodium            - tideways_xhprof   
-- uuid              - yaml              - zip               - Zend OPcache      
-- xdebug
+- ast               - bcmath            - bz2               - calendar
+- cgi-fcgi          - core              - ctype             - curl
+- date              - dom               - event             - exif
+- fileinfo          - filter            - ftp               - gd
+- gettext           - gmp               - hash              - iconv
+- igbinary          - imagick           - imap              - intl
+- json              - ldap              - libxml            - lzf
+- mbstring          - memcached         - mongodb           - msgpack
+- mysqli            - mysqlnd           - openssl           - pcntl
+- pcre              - pdo               - pdo_mysql         - pdo_pgsql
+- pdo_sqlite        - pgsql             - phalcon           - phar
+- posix             - psr               - readline          - redis
+- reflection        - session           - simplexml         - soap
+- sockets           - sodium            - spl               - sqlite3
+- ssh2              - standard          - swoole            - swoole_async
+- sysvmsg           - sysvsem           - sysvshm           - tideways_xhprof
+- tidy              - tokenizer         - uuid              - xdebug
+- xml               - xmlreader         - xmlwriter         - yaml
+- zend opcache      - zip               - zlib
 ```
 
 `phalcon` web framework `4.0.0-rc.3` has been installed.
