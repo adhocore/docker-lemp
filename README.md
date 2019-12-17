@@ -10,6 +10,7 @@ The docker container `adhocore/lemp` is composed of:
 
 Name          | Version    | Port
 --------------|------------|------
+adminer       | 4.7.5      | 80
 alpine        | 3.10       | -
 beanstalkd    | 1.10       | 11300
 elasticsearch | 6.4.3      | 9200,9300
@@ -20,6 +21,7 @@ phalcon       | 4.0.0rc3   | -
 PHP           | 7.4.0      | 9000
 PostgreSQL    | 11.6       | 5432
 redis         | 5.0.5      | 6379
+swoole        | 4.4.12     | -
 
 > `*`: It is actually MariaDB 10.3.20.
 
@@ -185,7 +187,8 @@ The following PHP extensions are installed:
 `phalcon` web framework `4.0.0-rc.3` has been installed.
 
 Read more about [tideways](https://github.com/tideways/php-xhprof-extension),
-[phalcon](https://github.com/phalcon/cphalcon) and [psr](https://github.com/jbboehr/php-psr).
+[psr](https://github.com/jbboehr/php-psr), [swoole](https://www.swoole.co.uk/)
+and [phalcon](https://github.com/phalcon/cphalcon).
 
 ### Testing mailcatcher
 
