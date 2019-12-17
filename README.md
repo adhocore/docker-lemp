@@ -8,17 +8,18 @@ It is quick jumpstart for onboarding you into docker based development.
 
 The docker container `adhocore/lemp` is composed of:
 
-Name        | Version    | Port
-------------|------------|------
-alpine      | 3.10       | -
-PHP         | 7.4.0      | 9000
-MySQL`*`    | 5.7        | 3306
-PostgreSQL  | 11.6       | 5432
-nginx       | 1.16.1     | 80
-mailcatcher | 0.7.1      | 88
-redis       | 5.0.5      | 6379
-beanstalkd  |            | 11300
-phalcon     | 4.0.0rc3   | -
+Name          | Version    | Port
+--------------|------------|------
+alpine        | 3.10       | -
+beanstalkd    | 1.10       | 11300
+elasticsearch | 6.4.3      | 9200,9300
+mailcatcher   | 0.7.1      | 88
+MySQL`*`      | 5.7        | 3306
+nginx         | 1.16.1     | 80
+phalcon       | 4.0.0rc3   | -
+PHP           | 7.4.0      | 9000
+PostgreSQL    | 11.6       | 5432
+redis         | 5.0.5      | 6379
 
 > `*`: It is actually MariaDB 10.3.20.
 
