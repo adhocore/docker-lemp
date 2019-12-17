@@ -2,9 +2,10 @@ FROM adhocore/phpfpm:7.4
 
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
-ENV ADMINER_VERSION=4.7.5
-ENV ES_HOME=/usr/share/java/elasticsearch
-ENV PATH=$ES_HOME/bin:$PATH
+ENV \
+  ADMINER_VERSION=4.7.5 \
+  ES_HOME=/usr/share/java/elasticsearch \
+  PATH=$ES_HOME/bin:$PATH
 
 RUN \
   # install
