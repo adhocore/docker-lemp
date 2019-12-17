@@ -3,35 +3,36 @@ FROM adhocore/phpfpm:7.4
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
 ENV ADMINER_VERSION=4.7.5
+ENV ES_HOME=/usr/share/java/elasticsearch
+ENV PATH=$ES_HOME/bin:$PATH
 
-# nano
-RUN apk add -U nano
-
-# phpfpm
-COPY php/php-fpm.ini /etc/supervisor.d/
-
-# mysql
-RUN apk add mysql mysql-client
-COPY mysql/mysqld.ini /etc/supervisor.d/
-
-# pgsql
-RUN apk add postgresql
-COPY pgsql/postgres.ini /etc/supervisor.d/
-
-# redis
-RUN apk add redis
-COPY redis/redis-server.ini /etc/supervisor.d/
-
-# beankstalkd
-RUN apk add beanstalkd
-COPY beanstalkd/beanstalkd.ini /etc/supervisor.d/
-
-# nginx
 RUN \
-  addgroup -S nginx \
-    && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
-    && apk add nginx
-COPY nginx/nginx.ini /etc/supervisor.d/
+  # install
+  apk add -U --no-cache \
+    beanstalkd \
+    elasticsearch \
+    mysql mysql-client \
+    nano \
+    nginx \
+    postgresql \
+    redis \
+    supervisor \
+  # elastic setup
+  && rm -rf $ES_HOME/plugins \
+    && mkdir -p $ES_HOME/tmp $ES_HOME/data $ES_HOME/logs $ES_HOME/plugins $ES_HOME/config/scripts \
+      && mv /etc/elasticsearch/* $ES_HOME/config/ \
+    # elastico user
+    && deluser elastico && addgroup -S elastico \
+      && adduser -D -S -h /usr/share/java/elasticsearch -s /bin/ash -G elastico elastico \
+      && chown elastico:elastico -R $ES_HOME \
+  # adminer
+  && mkdir -p /var/www/adminer \
+    && curl -sSLo /var/www/adminer/index.php \
+      "https://github.com/vrana/adminer/releases/download/v$ADMINER_VERSION/adminer-$ADMINER_VERSION-en.php" \
+  # cleanup
+  && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
+
+# nginx config
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
@@ -39,29 +40,29 @@ COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=tophfr/mailcatcher /usr/lib/libruby.so.2.5 /usr/lib/libruby.so.2.5
 COPY --from=tophfr/mailcatcher /usr/lib/ruby/ /usr/lib/ruby/
 COPY --from=tophfr/mailcatcher /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
-COPY mail/mailcatcher.ini /etc/supervisor.d/
-
-# supervisor
-RUN apk add supervisor
-
-# adminer
-RUN \
-  mkdir -p /var/www/adminer \
-  && curl -sSLo /var/www/adminer/index.php "https://github.com/vrana/adminer/releases/download/v$ADMINER_VERSION/adminer-$ADMINER_VERSION-en.php"
 
 # resource
 COPY php/index.php /var/www/html/index.php
+
+# supervisor config
+COPY \
+  beanstalkd/beanstalkd.ini \
+  elastic/elasticsearch.ini \
+  mail/mailcatcher.ini \
+  mysql/mysqld.ini \
+  nginx/nginx.ini \
+  pgsql/postgres.ini \
+  php/php-fpm.ini \
+  redis/redis-server.ini \
+    /etc/supervisor.d/
 
 # entrypoint
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-# cleanup
-RUN \
-  rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
+# ports
+EXPOSE 11300 9300 9200 9000 6379 5432 3306 88 80
 
-EXPOSE 11300 9000 6379 5432 3306 88 80
-
+# commands
 ENTRYPOINT ["/docker-entrypoint.sh"]
-
 CMD ["supervisord", "-n", "-j", "/supervisord.pid"]
