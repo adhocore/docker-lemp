@@ -18,6 +18,7 @@ alpine        | 3.10       | -
 beanstalkd    | 1.10       | 11300
 elasticsearch | 6.4.3      | 9200,9300
 mailcatcher   | 0.7.1      | 88
+memcached     | 1.5.16     | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.16.1     | 80
 phalcon       | 4.0.0rc3   | -
