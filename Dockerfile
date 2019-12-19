@@ -5,7 +5,7 @@ MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 ENV \
   ADMINER_VERSION=4.7.5 \
   ES_HOME=/usr/share/java/elasticsearch \
-  PATH=$ES_HOME/bin:$PATH
+  PATH=/usr/share/java/elasticsearch/bin:$PATH
 
 RUN \
   # install
