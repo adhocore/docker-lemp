@@ -12,6 +12,7 @@ RUN \
   apk add -U --no-cache \
     beanstalkd \
     elasticsearch \
+    memcached \
     mysql mysql-client \
     nano \
     nginx \
@@ -50,6 +51,7 @@ COPY \
   beanstalkd/beanstalkd.ini \
   elastic/elasticsearch.ini \
   mail/mailcatcher.ini \
+  memcached/memcached.ini \
   mysql/mysqld.ini \
   nginx/nginx.ini \
   pgsql/postgres.ini \
@@ -62,7 +64,7 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 # ports
-EXPOSE 11300 9300 9200 9000 6379 5432 3306 88 80
+EXPOSE 11300 11211 9300 9200 9000 6379 5432 3306 88 80
 
 # commands
 ENTRYPOINT ["/docker-entrypoint.sh"]
