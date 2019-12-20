@@ -22,7 +22,7 @@ memcached     | 1.5.16     | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.16.1     | 80
 phalcon       | 4.0.0rc3   | -
-PHP           | 7.4.0      | 9000
+PHP           | 7.4.1      | 9000
 PostgreSQL    | 11.6       | 5432
 redis         | 5.0.5      | 6379
 swoole        | 4.4.12     | -
