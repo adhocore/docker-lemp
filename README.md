@@ -13,7 +13,7 @@ The docker container `adhocore/lemp` is composed of:
 
 Name          | Version    | Port
 --------------|------------|------
-adminer       | 4.7.8      | 80
+adminer       | 4.7.7      | 80
 alpine        | 3.12       | -
 beanstalkd    | 1.10       | 11300
 elasticsearch | 6.4.3      | 9200,9300
@@ -22,7 +22,7 @@ memcached     | 1.5.16     | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.16.1     | 80
 phalcon       | 4.0.0rc3   | -
-PHP           | 7.4.7      | 9000
+PHP           | 7.4.8      | 9000
 PostgreSQL    | 11.6       | 5432
 redis         | 5.0.5      | 6379
 swoole        | 4.4.12     | -
