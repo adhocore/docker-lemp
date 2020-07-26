@@ -15,19 +15,19 @@ Name          | Version    | Port
 --------------|------------|------
 adminer       | 4.7.7      | 80
 alpine        | 3.12       | -
-beanstalkd    | 1.10       | 11300
+beanstalkd    | 1.11       | 11300
 elasticsearch | 6.4.3      | 9200,9300
 mailcatcher   | 0.7.1      | 88
-memcached     | 1.5.16     | 11211
+memcached     | 1.6.6      | 11211
 MySQL`*`      | 5.7        | 3306
-nginx         | 1.16.1     | 80
-phalcon       | 4.0.0rc3   | -
+nginx         | 1.18.0     | 80
+phalcon       | 4.0.0      | -
 PHP           | 7.4.8      | 9000
-PostgreSQL    | 11.6       | 5432
-redis         | 5.0.5      | 6379
+PostgreSQL    | 12.3       | 5432
+redis         | 5.0.9      | 6379
 swoole        | 4.4.12     | -
 
-> `*`: It is actually MariaDB 10.3.20.
+> `*`: It is actually MariaDB 10.4.13.
 
 ## Usage
 
