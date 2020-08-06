@@ -27,6 +27,10 @@ RUN \
     && deluser elastico && addgroup -S elastico \
       && adduser -D -S -h /usr/share/java/elasticsearch -s /bin/ash -G elastico elastico \
       && chown elastico:elastico -R $ES_HOME \
+  # rabbitmq
+  && echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories \
+    && apk add rabbitmq-server@testing \
+    && apk add rabbitmq-server \
   # adminer
   && mkdir -p /var/www/adminer \
     && curl -sSLo /var/www/adminer/index.php \
@@ -56,6 +60,7 @@ COPY \
   nginx/nginx.ini \
   pgsql/postgres.ini \
   php/php-fpm.ini \
+  rabbitmq/rabbitmq-server.ini \
   redis/redis-server.ini \
     /etc/supervisor.d/
 
@@ -64,7 +69,7 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 # ports
-EXPOSE 11300 11211 9300 9200 9000 6379 5432 3306 88 80
+EXPOSE 11300 11211 9300 9200 9000 6379 5672 5432 3306 88 80
 
 # commands
 ENTRYPOINT ["/docker-entrypoint.sh"]
