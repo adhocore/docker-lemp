@@ -24,6 +24,7 @@ nginx         | 1.18.0     | 80
 phalcon       | 4.0.0      | -
 PHP           | 7.4.8      | 9000
 PostgreSQL    | 12.3       | 5432
+rabbitmq      | 3.8.*      | 5672
 redis         | 5.0.9      | 6379
 swoole        | 4.4.12     | -
 
@@ -178,7 +179,7 @@ echo "\n" | sendmail -S 0 test@localhost
 
 Then you will see the new mail in realtime at http://localhost:8888.
 
-Or you can see check it in shell as well:
+Or you can check it in shell as well:
 ```sh
 
 curl 0:88/messages
