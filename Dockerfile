@@ -29,8 +29,8 @@ RUN \
       && chown elastico:elastico -R $ES_HOME \
   # rabbitmq
   && echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories \
-    && apk add rabbitmq-server@testing \
-    && apk add rabbitmq-server \
+    && apk add -U rabbitmq-server@testing \
+    && apk add -U rabbitmq-server \
   # adminer
   && mkdir -p /var/www/adminer \
     && curl -sSLo /var/www/adminer/index.php \
