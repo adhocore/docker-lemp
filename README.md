@@ -24,7 +24,7 @@ nginx         | 1.18.0     | 80
 phalcon       | 4.0.0      | -
 PHP           | 7.4.8      | 9000
 PostgreSQL    | 12.3       | 5432
-rabbitmq      | 3.8.*      | 5672
+~rabbitmq~    | 3.8.*      | 5672
 redis         | 5.0.9      | 6379
 swoole        | 4.4.12     | -
 
