@@ -2,10 +2,11 @@
 
 > Do not use this LEMP in Production.
 
-> For production, use [adhocore/phpfpm](https://github.com/adhocore/docker-phpfpm)
-> then [compose](https://docs.docker.com/compose/install/) a stack using individual `nginx`, `redis`, `mysql` etc images.
-
+> For production, wait until PHP8.0 official production release - somewhere in Nov 2020.
 [`adhocore/lemp`](https://hub.docker.com/r/adhocore/lemp) is a minimal single container LEMP full stack for local development.
+
+> If you want to tryout latest PHP8.0 beta which is not production ready, on LEMP stack then head over to
+[`adhocore/lemp:8.0b`](https://github.com/adhocore/docker-lemp/tree/8.0b)
 
 It is quick jumpstart for onboarding you into docker based development.
 
@@ -22,7 +23,7 @@ memcached     | 1.6.6      | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.18.0     | 80
 phalcon       | 4.0.0      | -
-PHP           | 7.4.8      | 9000
+PHP           | 8.0beta    | 9000
 PostgreSQL    | 12.3       | 5432
 ~rabbitmq~    | 3.8.*      | 5672
 redis         | 5.0.9      | 6379
@@ -37,19 +38,19 @@ Also recommended to install [docker-compose](https://docs.docker.com/compose/ins
 
 ```sh
 # pull latest image
-docker pull adhocore/lemp:7.4
+docker pull adhocore/lemp:8.0b
 
 # Go to your project root then run
-docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:7.4
+docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:8.0b
 
 # In windows, you would use %cd% instead of `pwd`
-docker run -p 8080:80 -p 8888:88 -v %cd%:/var/www/html --name lemp -d adhocore/lemp:7.4
+docker run -p 8080:80 -p 8888:88 -v %cd%:/var/www/html --name lemp -d adhocore/lemp:8.0b
 
 # If you want to setup MySQL credentials, pass env vars
 docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html \
   -e MYSQL_ROOT_PASSWORD=1234567890 -e MYSQL_DATABASE=appdb \
   -e MYSQL_USER=dbuser -e MYSQL_PASSWORD=123456 \
-  --name lemp -d adhocore/lemp:7.4
+  --name lemp -d adhocore/lemp:8.0b
   # for postgres you can pass in similar env as for mysql but with PGSQL_ prefix
 ```
 
@@ -80,7 +81,7 @@ docker start lemp
 
 > **PRO** If you develop multiple apps, you can create multiple lemp containers with different names.
 >
-> eg: `docker run -p 8081:80 -v $(pwd):/var/www/html --name new-lemp -d adhocore/lemp:7.4`
+> eg: `docker run -p 8081:80 -v $(pwd):/var/www/html --name new-lemp -d adhocore/lemp:8.0b`
 
 
 ## With Docker compose
@@ -93,7 +94,7 @@ version: '3'
 
 services:
   app:
-    image: adhocore/lemp:7.4
+    image: adhocore/lemp:8.0b
     # For different app you can use different names. (eg: )
     container_name: some-app
     volumes:
@@ -165,7 +166,7 @@ Either your app has `public/` folder or not, the rewrite adapts automatically.
 
 ### PHP
 
-For available extensions, check [adhocore/phpfpm#extension](https://github.com/adhocore/docker-phpfpm#extensions).
+For available extensions, check [adhocore/phpfpm#extension](https://github.com/adhocore/docker-phpfpm/tree/8.0b#extensions).
 
 ### Testing mailcatcher
 
