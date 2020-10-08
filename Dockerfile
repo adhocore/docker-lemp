@@ -1,4 +1,4 @@
-FROM adhocore/phpfpm:8.0b
+FROM adhocore/phpfpm:8.0rc
 
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
