@@ -3,7 +3,7 @@ FROM adhocore/phpfpm:8.0
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
 ENV \
-  ADMINER_VERSION=4.7.7 \
+  ADMINER_VERSION=4.7.8 \
   ES_HOME=/usr/share/java/elasticsearch \
   PATH=/usr/share/java/elasticsearch/bin:$PATH
 
