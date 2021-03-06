@@ -24,7 +24,7 @@ memcached     | 1.6.6      | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.18.0     | 80
 phalcon       | 4.0.0      | -
-PHP           | 8.0.0      | 9000
+PHP           | 8.0.3      | 9000
 PostgreSQL    | 12.3       | 5432
 ~rabbitmq~    | 3.8.*      | 5672
 redis         | 5.0.9      | 6379
