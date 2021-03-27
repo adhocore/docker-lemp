@@ -15,7 +15,7 @@ The docker container `adhocore/lemp` is composed of:
 
 Name          | Version    | Port
 --------------|------------|------
-adminer       | 4.7.7      | 80
+adminer       | 4.7.8      | 80
 alpine        | 3.12       | -
 beanstalkd    | 1.11       | 11300
 elasticsearch | 6.4.3      | 9200,9300
@@ -30,7 +30,7 @@ PostgreSQL    | 12.3       | 5432
 redis         | 5.0.9      | 6379
 swoole        | 4.4.12     | -
 
-> `*`: It is actually MariaDB 10.4.13.
+> `*`: It is actually MariaDB 10.4.17.
 
 ## Usage
 
@@ -99,6 +99,9 @@ services:
     # For different app you can use different names. (eg: )
     container_name: some-app
     volumes:
+      # app source code
+      - ./path/to/your/app:/var/www/html
+      # db data persistence
       - db_data:/var/lib/mysql
       # Here you can also volume php ini settings
       # - /path/to/zz-overrides:/usr/local/etc/php/conf.d/zz-overrides.ini
@@ -167,7 +170,7 @@ Either your app has `public/` folder or not, the rewrite adapts automatically.
 
 ### PHP
 
-For available extensions, check [adhocore/phpfpm#extension](https://github.com/adhocore/docker-phpfpm/tree/8.0b#extensions).
+For available extensions, check [adhocore/phpfpm#extension](https://github.com/adhocore/docker-phpfpm/tree/8.0#extensions).
 
 ### Testing mailcatcher
 
