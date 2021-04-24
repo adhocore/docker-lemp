@@ -1,5 +1,10 @@
 ## docker-lemp
 
+![Docker Build](https://img.shields.io/docker/cloud/build/adhocore/lemp?style=flat-square)
+[![Donate](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square)](https://www.paypal.me/ji10/50usd)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Complete+LEMP+fullstack+for+local+development+using+docker&url=https://github.com/adhocore/docker-lemp&hashtags=docker,lemp,fullstack,localdev)
+
+
 > Do not use this LEMP in Production.
 > For production, use [adhocore/phpfpm](https://github.com/adhocore/docker-phpfpm)
 > then [compose](https://docs.docker.com/compose/install/) a stack using individual `nginx`, `redis`, `mysql` etc images.
