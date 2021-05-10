@@ -11,8 +11,7 @@
 
 [`adhocore/lemp`](https://hub.docker.com/r/adhocore/lemp) is a minimal single container LEMP full stack for local development.
 
-> If you want to use PHP7.4 on LEMP stack then head over to
-[`adhocore/lemp:7.4`](https://github.com/adhocore/docker-lemp/tree/7.4).
+> If you want to use PHP7.4 on LEMP stack then head over to [`adhocore/lemp:7.4`](7.4.Dockerfile).
 
 It is quick jumpstart for onboarding you into docker based development.
 
@@ -20,7 +19,7 @@ The docker container `adhocore/lemp` is composed of:
 
 Name          | Version    | Port
 --------------|------------|------
-adminer       | 4.7.8      | 80
+adminer       | 4.8.0      | 80
 alpine        | 3.12       | -
 beanstalkd    | 1.11       | 11300
 elasticsearch | 6.4.3      | 9200,9300
@@ -29,11 +28,12 @@ memcached     | 1.6.6      | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.18.0     | 80
 phalcon       | 4.0.0      | -
-PHP           | 8.0.6      | 9000
-PostgreSQL    | 12.3       | 5432
+PHP8.0        | 8.0.6      | 9000
+PHP7.4        | 7.4.19     | 9000
+PostgreSQL    | 12.6       | 5432
 ~rabbitmq~    | 3.8.*      | 5672
-redis         | 5.0.9      | 6379
-swoole        | 4.4.12     | -
+redis         | 5.0.11     | 6379
+swoole        | 4.5.9      | -
 
 > `*`: It is actually MariaDB 10.4.17.
 
