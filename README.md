@@ -14,6 +14,7 @@
 > If you want to use PHP7.4 on LEMP stack then head over to [`adhocore/lemp:7.4`](7.4.Dockerfile).
 
 It is quick jumpstart for onboarding you into docker based development.
+The download size is just about ~360MB which is tiny considering how much tools and stuffs it contains.
 
 The docker container `adhocore/lemp` is composed of:
 
@@ -28,8 +29,8 @@ memcached     | 1.6.6      | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.18.0     | 80
 phalcon       | 4.0.0      | -
-PHP8.0        | 8.0.6      | 9000
-PHP7.4        | 7.4.19     | 9000
+PHP8.0        | 8.0.7      | 9000
+PHP7.4        | 7.4.20     | 9000
 PostgreSQL    | 12.6       | 5432
 ~rabbitmq~    | 3.8.*      | 5672
 redis         | 5.0.11     | 6379
@@ -45,6 +46,9 @@ Also recommended to install [docker-compose](https://docs.docker.com/compose/ins
 ```sh
 # pull latest image
 docker pull adhocore/lemp:8.0
+
+# or if you use php 7.4, replace 8.0 with 7.4:
+docker pull adhocore/lemp:7.4
 
 # Go to your project root then run
 docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:8.0
