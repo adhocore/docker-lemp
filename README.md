@@ -1,7 +1,9 @@
 ## docker-lemp
 
 ![Docker Build](https://img.shields.io/docker/cloud/build/adhocore/lemp?style=flat-square)
-[![Donate](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square)](https://www.paypal.me/ji10/50usd)
+[![Donate 15](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square&label=donate+15)](https://www.paypal.me/ji10/15usd)
+[![Donate 25](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square&label=donate+25)](https://www.paypal.me/ji10/25usd)
+[![Donate 50](https://img.shields.io/badge/donate-paypal-blue.svg?style=flat-square&label=donate+50)](https://www.paypal.me/ji10/50usd)
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Complete+LEMP+fullstack+for+local+development+using+docker&url=https://github.com/adhocore/docker-lemp&hashtags=docker,lemp,fullstack,localdev)
 
 
