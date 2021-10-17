@@ -6,6 +6,20 @@ MYSQL_PASSWORD=${MYSQL_PASSWORD:-123456}
 PGSQL_ROOT_PASSWORD=${PGSQL_ROOT_PASSWORD:-1234567890}
 PGSQL_PASSWORD=${PGSQL_PASSWORD:-123456}
 
+DISABLE=",$DISABLE,"
+
+for S in beanstalkd elasticsearch mailcatcher memcached mysql pgsql rabbitmq redis; do
+  DS=$(echo $DISABLE | grep -q ",$S," && echo "YES"  || echo "NO")
+  if [ "$DS" == "YES" ]; then
+    if [[ -f "/etc/supervisor.d/$S.ini" ]]; then mv "/etc/supervisor.d/$S.ini" "/etc/supervisor.d/$S"; fi
+  else
+    if [[ -f "/etc/supervisor.d/$S" ]]; then mv "/etc/supervisor.d/$S" "/etc/supervisor.d/$S.ini"; fi
+  fi
+done
+
+DISABLE_MYSQL=$(echo $DISABLE | grep -q ",mysql," && echo "YES"  || echo "NO")
+DISABLE_PGSQL=$(echo $DISABLE | grep -q ",pgsql," && echo "YES"  || echo "NO")
+
 # init nginx
 if [ ! -d "/var/tmp/nginx/client_body" ]; then
   mkdir -p /run/nginx /var/tmp/nginx/client_body
@@ -13,7 +27,7 @@ if [ ! -d "/var/tmp/nginx/client_body" ]; then
 fi
 
 # init mysql
-if [ ! -f "/run/mysqld/.init" ]; then
+if [ "$DISABLE_MYSQL" != "YES" ] && [ ! -f "/run/mysqld/.init" ]; then
   [[ "$MYSQL_USER" = "root" ]] && echo "Please set MYSQL_USER other than root" && exit 1
 
   SQL=$(mktemp)
@@ -46,7 +60,7 @@ if [ ! -f "/run/mysqld/.init" ]; then
 fi
 
 # init pgsql
-if [ ! -f /run/postgresql/.init ]; then
+if [ "$DISABLE_PGSQL" != "YES" ] && [ ! -f /run/postgresql/.init ]; then
   [[ "$PGSQL_USER" = "postgres" ]] && echo "Please set PGSQL_USER other than postgres" && exit 1
 
   SQL=$(mktemp)
