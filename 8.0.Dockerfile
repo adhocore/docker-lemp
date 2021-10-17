@@ -3,7 +3,7 @@ FROM adhocore/phpfpm:8.0
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
 ENV \
-  ADMINER_VERSION=4.8.0 \
+  ADMINER_VERSION=4.8.1 \
   ES_HOME=/usr/share/java/elasticsearch \
   PATH=/usr/share/java/elasticsearch/bin:$PATH
 
@@ -53,15 +53,15 @@ COPY php/index.php /var/www/html/index.php
 # supervisor config
 COPY \
   beanstalkd/beanstalkd.ini \
-  elastic/elasticsearch.ini \
-  mail/mailcatcher.ini \
+  elasticsearch/elasticsearch.ini \
+  mailcatcher/mailcatcher.ini \
   memcached/memcached.ini \
-  mysql/mysqld.ini \
+  mysql/mysql.ini \
   nginx/nginx.ini \
-  pgsql/postgres.ini \
+  pgsql/pgsql.ini \
   php/php-fpm.ini \
-  # rabbitmq/rabbitmq-server.ini \
-  redis/redis-server.ini \
+  # rabbitmq/rabbitmq.ini \
+  redis/redis.ini \
     /etc/supervisor.d/
 
 # entrypoint
