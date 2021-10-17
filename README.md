@@ -184,6 +184,25 @@ Either your app has `public/` folder or not, the rewrite adapts automatically.
 
 For available extensions, check [adhocore/phpfpm#extension](https://github.com/adhocore/docker-phpfpm/tree/8.0#extensions).
 
+### Disabling services
+
+[Pass in env var](https://www.cloudsavvyit.com/14081/how-to-pass-environment-variables-to-docker-containers/)
+`DISABLE` to the container in CSV format to disable services.
+The service names must be one or more of below in comma separated format:
+```
+beanstalkd
+mailcatcher
+memcached
+mysql
+pgsql
+redis
+```
+
+> Example: `DISABLE=beanstalkd,mailcatcher,memcached,pgsql,redis`
+> Essential services like `nginx`, `php`, `adminer` cannot be disabled ;).
+
+The service(s) will be enabled again if you run the container next time without `DISABLE` env or if you remove specific services from `DISABLE` CSV.
+
 ### Testing mailcatcher
 
 ```sh
