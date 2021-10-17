@@ -22,13 +22,13 @@ The docker container `adhocore/lemp` is composed of:
 
 Name          | Version    | Port
 --------------|------------|------
-adminer       | 4.8.0      | 80
+adminer       | 4.8.1      | 80
 alpine        | 3.12       | -
 beanstalkd    | 1.11       | 11300
-elasticsearch | 6.4.3      | 9200,9300
+elasticsearch`*` | 6.4.3      | 9200,9300
 mailcatcher   | 0.7.1      | 88
 memcached     | 1.6.6      | 11211
-MySQL`*`      | 5.7        | 3306
+MySQL`**`     | 5.7        | 3306
 nginx         | 1.18.0     | 80
 phalcon       | 4.0.0      | -
 PHP8.0        | 8.0.7      | 9000
@@ -38,7 +38,8 @@ PostgreSQL    | 12.6       | 5432
 redis         | 5.0.11     | 6379
 swoole        | 4.5.9      | -
 
-> `*`: It is actually MariaDB 10.4.17.
+> `*`: Latest versions of alpine (3.13+) seems to have removed `elasticsearch` binary!
+> `**`: It is actually MariaDB 10.4.17.
 
 ## Usage
 
