@@ -31,6 +31,7 @@ memcached     | 1.6.6      | 11211
 MySQL`**`     | 5.7        | 3306
 nginx         | 1.18.0     | 80
 phalcon       | 4.0.0      | -
+PHP8.1        | 8.1.5      | 9000
 PHP8.0        | 8.0.12     | 9000
 PHP7.4        | 7.4.25     | 9000
 PostgreSQL    | 12.6       | 5432
@@ -48,6 +49,9 @@ Also recommended to install [docker-compose](https://docs.docker.com/compose/ins
 
 ```sh
 # pull latest image
+docker pull adhocore/lemp:8.1
+
+# or with PHP8.0
 docker pull adhocore/lemp:8.0
 
 # or if you use php 7.4, replace 8.0 with 7.4:
