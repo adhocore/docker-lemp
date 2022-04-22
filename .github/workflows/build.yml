@@ -17,6 +17,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: "Pull"
+        run: docker pull adhocore/lemp:7.4 && docker pull adhocore/lemp:8.0 && docker pull adhocore/lemp:8.1 || true
       - name: "[7.4] Build and push"
         id: docker_build_74
         uses: docker/build-push-action@v2
