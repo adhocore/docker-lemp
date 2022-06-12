@@ -1,0 +1,16 @@
+{
+    "name": "inquid/php-example",
+    "description": "Example PHP project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Inquid",
+            "email": "contact@inquid.co"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "mongodb/mongodb": "1.9.x-dev"
+    }
+}
