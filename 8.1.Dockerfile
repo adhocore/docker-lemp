@@ -4,7 +4,7 @@ MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
 ENV \
   ADMINER_VERSION=4.8.1 \
-  ALPINE_VERSION=3.6 \
+  ALPINE_VERSION=3.9 \
   ES_HOME=/usr/share/java/elasticsearch \
   PATH=/usr/share/java/elasticsearch/bin:$PATH
 
@@ -38,7 +38,7 @@ RUN \
       "https://github.com/vrana/adminer/releases/download/v$ADMINER_VERSION/adminer-$ADMINER_VERSION-en.php" \
   # cleanup
   && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
-  
+
 ### MongoDB
    RUN set -x && \
        apk update && \
@@ -48,12 +48,13 @@ RUN \
 
     RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main" >> /etc/apk/repositories
     RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/community" >> /etc/apk/repositories
-    RUN apk update
-    RUN apk add mongodb \
+    RUN apk update \
+    # TODO check this, is this a long term solution?? https://github.com/w-digital-scanner/w11scan/issues/9
+    RUN apk add mongodb yaml-cpp=0.6.2-r2 \
                 mongodb-tools
 
 # create mongodb directory
-RUN mkdir -p /data/db  
+RUN mkdir -p /data/db
 
 # nginx config
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
