@@ -37,6 +37,22 @@ RUN \
       "https://github.com/vrana/adminer/releases/download/v$ADMINER_VERSION/adminer-$ADMINER_VERSION-en.php" \
   # cleanup
   && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
+  
+### MongoDB
+   RUN set -x && \
+       apk update && \
+       apk add \
+    	   bzip2 \
+    	   xz
+
+    RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main" >> /etc/apk/repositories
+    RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/community" >> /etc/apk/repositories
+    RUN apk update
+    RUN apk add mongodb \
+                mongodb-tools
+
+# create mongodb directory
+RUN mkdir -p /data/db  
 
 # nginx config
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
@@ -69,7 +85,7 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 # ports
-EXPOSE 11300 11211 9300 9200 9000 6379 5432 3306 88 80
+EXPOSE 11300 11211 9300 9200 9000 6379 5432 3306 27017 88 80
 
 # commands
 ENTRYPOINT ["/docker-entrypoint.sh"]
