@@ -6,6 +6,9 @@ MYSQL_PASSWORD=${MYSQL_PASSWORD:-123456}
 PGSQL_ROOT_PASSWORD=${PGSQL_ROOT_PASSWORD:-1234567890}
 PGSQL_PASSWORD=${PGSQL_PASSWORD:-123456}
 
+MONGODB_USER=${MONGODB_USER:-admin}
+MONGODB_PASSWORD=${MONGODB_PASSWORD:-123456}
+
 DISABLE=",$DISABLE,"
 
 for S in beanstalkd elasticsearch mailcatcher memcached mysql pgsql rabbitmq redis; do
@@ -85,5 +88,30 @@ if [ "$DISABLE_PGSQL" != "YES" ] && [ ! -f /run/postgresql/.init ]; then
   sed -i -E 's/host\s+all(.*)trust/host    all\1password/' /usr/local/pgsql/data/pg_hba.conf
   touch /run/postgresql/.init
 fi
+
+# Postgress
+echo "use admin
+db.createUser(
+  {
+    user: \"$MONGODB_USER\",
+    pwd: \"$MONGODB_PASSWORD\",
+         roles: [
+                   { role: \"userAdminAnyDatabase\", db: \"admin\" },
+                   { role: \"readWriteAnyDatabase\", db: \"admin\" },
+                   { role: \"dbAdminAnyDatabase\", db: \"admin\" },
+                   { role: \"clusterAdmin\", db: \"admin\" }
+                ]
+          }
+)" > /data/admin.js;
+mongod --dbpath /data/db run &
+mongopid
+
+# Wait for the mongo server to come up
+sleep 25
+
+mongo < /data/admin.js
+
+/start.sh 2> /tmp/result.log
+
 
 exec "$@"
