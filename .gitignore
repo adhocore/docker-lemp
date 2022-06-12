@@ -1,2 +1,3 @@
 docker-compose.yml
 docker-project.json
+php/vendor/*
