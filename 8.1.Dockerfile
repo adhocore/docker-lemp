@@ -4,6 +4,7 @@ MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
 ENV \
   ADMINER_VERSION=4.8.1 \
+  ALPINE_VERSION=3.6 \
   ES_HOME=/usr/share/java/elasticsearch \
   PATH=/usr/share/java/elasticsearch/bin:$PATH
 
@@ -64,7 +65,7 @@ COPY --from=tophfr/mailcatcher /usr/lib/ruby/ /usr/lib/ruby/
 COPY --from=tophfr/mailcatcher /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
 
 # resource
-COPY php/index.php /var/www/html/index.php
+COPY php/* /var/www/html/
 
 # supervisor config
 COPY \
