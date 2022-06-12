@@ -89,7 +89,7 @@ if [ "$DISABLE_PGSQL" != "YES" ] && [ ! -f /run/postgresql/.init ]; then
   touch /run/postgresql/.init
 fi
 
-# Postgress
+# init MongoDB
 echo "use admin
 db.createUser(
   {
