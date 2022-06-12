@@ -1,5 +1,7 @@
 <?php
 
+require 'vendor/autoload.php';
+
 $works = "<p>If you see this, that means it works!</p>\n\n";
 echo PHP_SAPI == 'cli' ? strip_tags($works) : $works;
 
@@ -19,6 +21,18 @@ if (PHP_SAPI !== 'cli') echo "<pre>\n";
 
 echo 'MySQL NOW(): ', $mdb->query('SELECT NOW()')->fetchColumn() . "\n";
 echo 'PgSQL NOW(): ', $pdb->query('SELECT NOW()')->fetchColumn() . "\n\n";
+
+
+$user = getenv('MONGODB_USER') ?: 'admin';
+$pass = getenv('MONGODB_PASSWORD') ?: '123456';
+
+// MongoDB
+$client = new MongoDB\Client("mongodb://${user}:${pass}@localhost:27017");
+$collection = $client->demo->beers;
+$result = $collection->insertOne(['name' => 'Hinterland', 'brewery' => 'BrewDog']);
+
+echo "Mongo record inserted with Object ID '{$result->getInsertedId()}'";
+
 echo 'PHP: ', phpversion(), "\n\n";
 
 $extensions = get_loaded_extensions();
