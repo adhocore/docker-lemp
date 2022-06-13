@@ -8,9 +8,16 @@ ENV \
   ES_HOME=/usr/share/java/elasticsearch \
   PATH=/usr/share/java/elasticsearch/bin:$PATH
 
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main" >> /etc/apk/repositories
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/community" >> /etc/apk/repositories
+
 RUN \
+  set -x \
+  apk update && \
   # install
   apk add -U --no-cache \
+    bzip2  \
+    xz \
     beanstalkd \
     # elasticsearch \
     memcached \
@@ -19,6 +26,8 @@ RUN \
     nginx \
     postgresql \
     redis \
+    mongodb yaml-cpp=0.6.2-r2 \
+    mongodb-tools \
     supervisor \
   # elastic setup
   # && rm -rf $ES_HOME/plugins \
@@ -39,20 +48,6 @@ RUN \
   # cleanup
   && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
 
-### MongoDB
-   RUN set -x && \
-       apk update && \
-       apk add \
-    	   bzip2 \
-    	   xz
-
-    RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main" >> /etc/apk/repositories
-    RUN echo "http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/community" >> /etc/apk/repositories
-    RUN apk update \
-    # TODO check this, is this a long term solution?? https://github.com/w-digital-scanner/w11scan/issues/9
-    RUN apk add mongodb yaml-cpp=0.6.2-r2 \
-                mongodb-tools
-
 # create mongodb directory
 RUN mkdir -p /data/db
 
@@ -60,7 +55,7 @@ RUN mkdir -p /data/db
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
-# mailcatcher
+# mailcatcherd
 COPY --from=tophfr/mailcatcher /usr/lib/libruby.so.2.5 /usr/lib/libruby.so.2.5
 COPY --from=tophfr/mailcatcher /usr/lib/ruby/ /usr/lib/ruby/
 COPY --from=tophfr/mailcatcher /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
