@@ -8,10 +8,12 @@ ENV \
   PATH=/usr/share/java/elasticsearch/bin:$PATH
 
 RUN \
+  # prepare
+  echo @legacy https://dl-cdn.alpinelinux.org/alpine/v3.12/community >> /etc/apk/repositories \
   # install
-  apk add -U --no-cache \
+  && apk add -U --no-cache \
     beanstalkd \
-    # elasticsearch \
+    elasticsearch@legacy \
     memcached \
     mysql mysql-client \
     nano \
@@ -20,13 +22,14 @@ RUN \
     redis \
     supervisor \
   # elastic setup
-  # && rm -rf $ES_HOME/plugins \
-  #   && mkdir -p $ES_HOME/tmp $ES_HOME/data $ES_HOME/logs $ES_HOME/plugins $ES_HOME/config/scripts \
-  #     && mv /etc/elasticsearch/* $ES_HOME/config/ \
-  #   # elastico user
-  #   && deluser elastico && addgroup -S elastico \
-  #     && adduser -D -S -h /usr/share/java/elasticsearch -s /bin/ash -G elastico elastico \
-  #     && chown elastico:elastico -R $ES_HOME \
+  && rm -rf $ES_HOME/plugins \
+    && mkdir -p $ES_HOME/tmp $ES_HOME/data $ES_HOME/logs $ES_HOME/plugins $ES_HOME/config/scripts \
+      && mv /etc/elasticsearch/* $ES_HOME/config/ \
+    # elastico user
+    && deluser elastico && addgroup -S elastico \
+      && adduser -D -S -h /usr/share/java/elasticsearch -s /bin/ash -G elastico elastico \
+      && chown elastico:elastico -R $ES_HOME \
+      && { sed -ie "s/^-XX:/8-13:-XX:/" /usr/share/java/elasticsearch/config/jvm.options || true; } \
   # rabbitmq
   # && echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories \
     # && apk add -U rabbitmq-server@testing \
@@ -53,7 +56,7 @@ COPY php/index.php /var/www/html/index.php
 # supervisor config
 COPY \
   beanstalkd/beanstalkd.ini \
-  # elasticsearch/elasticsearch.ini \
+  elasticsearch/elasticsearch.ini \
   mailcatcher/mailcatcher.ini \
   memcached/memcached.ini \
   mysql/mysql.ini \
