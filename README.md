@@ -24,23 +24,24 @@ Name          | Version    | Port
 --------------|------------|------
 adminer       | 4.8.1      | 80
 alpine        | 3.15       | -
-beanstalkd    | 1.11       | 11300
-elasticsearch`*` | 6.4.3      | 9200,9300
+beanstalkd    | 1.12       | 11300
+elasticsearch | 6.4.3      | 9200,9300
 mailcatcher   | 0.7.1      | 88
-memcached     | 1.6.6      | 11211
-MySQL`**`     | 5.7        | 3306
-nginx         | 1.18.0     | 80
-phalcon       | 4.0.0      | -
-PHP8.1        | 8.1.11     | 9000
-PHP8.0        | 8.0.24     | 9000
-PHP7.4        | 7.4.30     | 9000
-PostgreSQL    | 12.6       | 5432
-~rabbitmq~    | 3.8.*      | 5672
-redis         | 5.0.11     | 6379
-swoole        | 4.5.9      | -
+memcached     | 1.6.12      | 11211
+MySQL`*`      | 5.7        | 3306
+nginx         | 1.20.2     | 80
+phalcon       | 5.0.3      | -
+PHP8.1`+`     | 8.1.11     | 9000
+PHP8.0`+`     | 8.0.24     | 9000
+PHP7.4`+`     | 7.4.32     | 9000
+PostgreSQL    | 14.5       | 5432
+~rabbitmq~`^` | 3.8.*      | 5672
+redis         | 6.2.7      | 6379
+swoole        | 4.8.9      | -
 
-> `*`: Latest versions of alpine (3.13+) seems to have removed `elasticsearch` binary!
-> `**`: It is actually MariaDB 10.4.17.
+> `*`: Actually [MariaDB 10.6.9](https://mariadb.com/kb/en/mariadb-vs-mysql-compatibility/).
+
+> `+`: Different image tags each viz `:8.1`, `:8.0` and `:7.4`.
 
 ## Usage
 
@@ -67,7 +68,7 @@ docker run -p 8080:80 -p 8888:88 -v %cd%:/var/www/html --name lemp -d adhocore/l
 docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html \
   -e MYSQL_ROOT_PASSWORD=1234567890 -e MYSQL_DATABASE=appdb \
   -e MYSQL_USER=dbuser -e MYSQL_PASSWORD=123456 \
-  --name lemp -d adhocore/lemp:8.0
+  --name lemp -d adhocore/lemp:8.1
   # for postgres you can pass in similar env as for mysql but with PGSQL_ prefix
 ```
 
