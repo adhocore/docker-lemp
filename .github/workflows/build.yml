@@ -17,22 +17,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: "Pull"
-        run: docker pull adhocore/lemp:7.4 && docker pull adhocore/lemp:8.0 && docker pull adhocore/lemp:8.1 || true
-      - name: "[7.4] Build and push"
-        id: docker_build_74
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          file: 7.4.Dockerfile
-          tags: adhocore/lemp:7.4-alp3.13,adhocore/lemp:7.4
-      - name: "[8.0] Build and push"
-        id: docker_build_80
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          file: 8.0.Dockerfile
-          tags: adhocore/lemp:8.0-alp3.13,adhocore/lemp:8.0
+
       - name: "[8.1] Build and push"
         id: docker_build_81
         uses: docker/build-push-action@v2
@@ -40,3 +25,43 @@ jobs:
           push: true
           file: 8.1.Dockerfile
           tags: adhocore/lemp:8.1
+      - name: "[8.1] Test"
+        run: |
+          docker run --name lemp81 adhocore/lemp:8.1 &
+          sleep 60
+          docker exec $(docker ps -q -f 'name=lemp81') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:80'
+          PORTS=$(docker exec $(docker ps -q -f 'name=lemp81') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:80' | wc -l | xargs)
+          sleep 1 && docker stop lemp81 > /dev/null || true
+          [[ "10" == "$PORTS" ]] || { echo '[8.1] Not all ports are open' && exit 1; }
+
+      - name: "[8.0] Build and push"
+        id: docker_build_80
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: 8.0.Dockerfile
+          tags: adhocore/lemp:8.0
+      - name: "[8.0] Test"
+        run: |
+          docker run --name lemp80 adhocore/lemp:8.0 &
+          sleep 60
+          docker exec $(docker ps -q -f 'name=lemp80') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:80'
+          PORTS=$(docker exec $(docker ps -q -f 'name=lemp80') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:80' | wc -l | xargs)
+          sleep 1 && docker stop lemp80 > /dev/null || true
+          [[ "10" == "$PORTS" ]] || { echo '[8.0] Not all ports are open' && exit 1; }
+
+      - name: "[7.4] Build and push"
+        id: docker_build_74
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: 7.4.Dockerfile
+          tags: adhocore/lemp:7.4
+      - name: "[7.4] Test"
+        run: |
+          docker run --name lemp74 adhocore/lemp:7.4 &
+          sleep 60
+          docker exec $(docker ps -q -f 'name=lemp74') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:80'
+          PORTS=$(docker exec $(docker ps -q -f 'name=lemp74') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:80' | wc -l | xargs)
+          sleep 1 && docker stop lemp74 > /dev/null || true
+          [[ "10" == "$PORTS" ]] || { echo '[7.4] Not all ports are open' && exit 1; }
