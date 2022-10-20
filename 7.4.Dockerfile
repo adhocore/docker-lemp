@@ -13,7 +13,7 @@ RUN \
   # install
   && apk add -U --no-cache \
     beanstalkd \
-    # elasticsearch \
+    elasticsearch@legacy \
     memcached \
     mysql mysql-client \
     nano \
