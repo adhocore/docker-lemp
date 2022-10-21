@@ -17,6 +17,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: "Docker Pull"
+        run: |
+          docker pull adhocore/phpfpm:7.4 || true
+          docker pull adhocore/phpfpm:8.0 || true
+          docker pull adhocore/phpfpm:8.1 || true
+          docker pull adhocore/phpfpm:8.2 || true
 
       - name: "[8.1] Build and push"
         id: docker_build_81
@@ -65,3 +71,11 @@ jobs:
           PORTS=$(docker exec $(docker ps -q -f 'name=lemp74') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:80|0:25' | wc -l | xargs)
           sleep 1 && docker stop lemp74 > /dev/null || true
           [[ "11" == "$PORTS" ]] || { echo '[7.4] Not all ports are open' && exit 1; }
+
+      - name: "[8.2] Build and push"
+        id: docker_build_82
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: 8.2.Dockerfile
+          tags: adhocore/lemp:8.2
