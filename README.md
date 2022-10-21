@@ -26,7 +26,7 @@ adminer       | 4.8.1      | 80
 alpine        | 3.15       | -
 beanstalkd    | 1.12       | 11300
 elasticsearch | 6.4.3      | 9200,9300
-mailcatcher   | 0.7.1      | 88
+mailcatcher   | 0.7.1      | 88,25
 memcached     | 1.6.12      | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.20.2     | 80
