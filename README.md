@@ -190,7 +190,7 @@ Either your app has `public/` folder or not, the rewrite adapts automatically.
 
 ### PHP
 
-For available extensions, check [adhocore/phpfpm#extension](https://github.com/adhocore/docker-phpfpm/tree/8.0#extensions).
+For available extensions, check [adhocore/phpfpm#extensions](https://github.com/adhocore/docker-phpfpm#extensions).
 
 ### Disabling services
 
