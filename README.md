@@ -31,9 +31,9 @@ memcached     | 1.6.12      | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.20.2     | 80
 phalcon       | 5.0.3      | -
+PHP8.2`~`     | 8.2RC4     | 9000
 PHP8.1`+`     | 8.1.11     | 9000
 PHP8.0`+`     | 8.0.24     | 9000
-PHP8.2`~`     | 8.2RC4     | 9000
 PHP7.4`+`     | 7.4.32     | 9000
 PostgreSQL    | 14.5       | 5432
 ~rabbitmq~`^` | 3.8.*      | 5672
@@ -42,9 +42,9 @@ swoole        | 4.8.9      | -
 
 > `*`: Actually [MariaDB 10.6.9](https://mariadb.com/kb/en/mariadb-vs-mysql-compatibility/).
 
-> `+`: Different image tags each viz `8.2`, `:8.1`, `:8.0` and `:7.4`.
-
 > `~`: RC version can be used for test/dev but not production.
+
+> `+`: Different image tags each viz `8.2`, `:8.1`, `:8.0` and `:7.4`.
 
 ## Usage
 
@@ -60,6 +60,9 @@ docker pull adhocore/lemp:8.0
 
 # or if you use php 7.4, replace 8.0 with 7.4:
 docker pull adhocore/lemp:7.4
+
+# tryout php 8.2rc
+docker pull adhocore/lemp:8.1
 
 # Go to your project root then run
 docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:8.0
