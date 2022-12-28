@@ -31,10 +31,10 @@ memcached     | 1.6.12      | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.20.2     | 80
 phalcon       | 5.0.3      | -
-PHP8.2`~`     | 8.2RC4     | 9000
-PHP8.1`+`     | 8.1.11     | 9000
-PHP8.0`+`     | 8.0.24     | 9000
-PHP7.4`+`     | 7.4.32     | 9000
+PHP8.2`+`     | 8.2.0      | 9000
+PHP8.1`+`     | 8.1.13     | 9000
+PHP8.0`+`     | 8.0.26     | 9000
+PHP7.4`~`     | 7.4.33     | 9000
 PostgreSQL    | 14.5       | 5432
 ~rabbitmq~`^` | 3.8.*      | 5672
 redis         | 6.2.7      | 6379
@@ -42,9 +42,9 @@ swoole        | 4.8.9      | -
 
 > `*`: Actually [MariaDB 10.6.9](https://mariadb.com/kb/en/mariadb-vs-mysql-compatibility/).
 
-> `~`: RC version can be used for test/dev but not production.
+> `+`: Different image tags each viz `:8.2`, `:8.1`, `:8.0` and `:7.4`.
 
-> `+`: Different image tags each viz `8.2`, `:8.1`, `:8.0` and `:7.4`.
+> `~`: PHP 7.4 has reached end of life and is deprecated.
 
 ## Usage
 
@@ -53,28 +53,28 @@ Also recommended to install [docker-compose](https://docs.docker.com/compose/ins
 
 ```sh
 # pull latest image
+docker pull adhocore/lemp:8.2
+
+# or with PHP8.1
 docker pull adhocore/lemp:8.1
 
 # or with PHP8.0
 docker pull adhocore/lemp:8.0
 
-# or if you use php 7.4, replace 8.0 with 7.4:
+# or if you *still* use php 7.4 (which you should not):
 docker pull adhocore/lemp:7.4
 
-# tryout php 8.2rc
-docker pull adhocore/lemp:8.1
-
 # Go to your project root then run
-docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:8.0
+docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html --name lemp -d adhocore/lemp:8.2
 
 # In windows, you would use %cd% instead of `pwd`
-docker run -p 8080:80 -p 8888:88 -v %cd%:/var/www/html --name lemp -d adhocore/lemp:8.0
+docker run -p 8080:80 -p 8888:88 -v %cd%:/var/www/html --name lemp -d adhocore/lemp:8.2
 
 # If you want to setup MySQL credentials, pass env vars
 docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html \
   -e MYSQL_ROOT_PASSWORD=1234567890 -e MYSQL_DATABASE=appdb \
   -e MYSQL_USER=dbuser -e MYSQL_PASSWORD=123456 \
-  --name lemp -d adhocore/lemp:8.1
+  --name lemp -d adhocore/lemp:8.2
   # for postgres you can pass in similar env as for mysql but with PGSQL_ prefix
 ```
 
@@ -118,7 +118,7 @@ version: '3'
 
 services:
   app:
-    image: adhocore/lemp:8.0
+    image: adhocore/lemp:8.2
     # For different app you can use different names. (eg: )
     container_name: some-app
     volumes:
