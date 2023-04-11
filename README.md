@@ -31,7 +31,7 @@ mailcatcher   | 0.7.1      | 88,25
 memcached     | 1.6.12      | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.20.2     | 80
-phalcon       | 5.0.3      | -
+~phalcon~`"`       | 5.0.3      | -
 PHP8.2`+`     | 8.2.4      | 9000
 PHP8.1`+`     | 8.1.17     | 9000
 PHP8.0`+`     | 8.0.28     | 9000
@@ -39,13 +39,15 @@ PHP7.4`~`     | 7.4.33     | 9000
 PostgreSQL    | 14.5       | 5432
 ~rabbitmq~`^` | 3.8.*      | 5672
 redis         | 6.2.7      | 6379
-swoole        | 4.8.9      | -
+~swoole~`"`        | 4.8.9      | -
 
 > `*`: Actually [MariaDB 10.6.9](https://mariadb.com/kb/en/mariadb-vs-mysql-compatibility/).
 
 > `+`: Different image tags each viz `:8.2`, `:8.1`, `:8.0` and `:7.4`.
 
 > `~`: PHP 7.4 has reached end of life and is deprecated.
+
+> `^`: swoole, phalcon have been disabled for now in order to optimize and speed up multiplatform builds (amd64/arm64).
 
 ## Usage
 
