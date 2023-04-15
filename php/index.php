@@ -10,7 +10,7 @@ $mdb = new PDO(
 );
 
 $pdb = new PDO(
-    'pgsql:host=127.0.0.1;port=5432;dbname=' . (getenv('PGSQL_DATABASE') ?: 'test'),
+    'pgsql:host=127.0.0.1;port=5432;dbname=' . (getenv('PGSQL_DATABASE') ?: 'postgres'),
     getenv('PGSQL_USER') ?: 'postgres',
     getenv('PGSQL_PASSWORD') ?: '1234567890'
 );
