@@ -11,7 +11,7 @@ RUN \
   # prepare
   echo @legacy https://dl-cdn.alpinelinux.org/alpine/v3.12/community >> /etc/apk/repositories \
   # install
-  && apk add -U --no-cache \
+  && apk add -U --no-cache libssl1.1 \
     beanstalkd \
     elasticsearch@legacy \
     memcached \
