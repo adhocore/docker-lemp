@@ -11,7 +11,7 @@ RUN \
   # prepare
   echo @legacy https://dl-cdn.alpinelinux.org/alpine/v3.12/community >> /etc/apk/repositories \
   # install
-  && apk add -U --no-cache \
+  && apk add -U --no-cache libssl1.1 \
     beanstalkd \
     elasticsearch@legacy \
     memcached \
@@ -46,9 +46,9 @@ COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
 # mailcatcher
-COPY --from=dockage/mailcatcher:0.8.2 /usr/lib/libruby.so.3.0 /usr/lib/libruby.so.3.0.4
-COPY --from=dockage/mailcatcher:0.8.2 /usr/lib/ruby/ /usr/lib/ruby/
-COPY --from=dockage/mailcatcher:0.8.2 /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
+COPY --from=tophfr/mailcatcher /usr/lib/libruby.so.2.5 /usr/lib/libruby.so.2.5
+COPY --from=tophfr/mailcatcher /usr/lib/ruby/ /usr/lib/ruby/
+COPY --from=tophfr/mailcatcher /usr/bin/ruby /usr/bin/mailcatcher /usr/bin/
 
 # resource
 COPY php/index.php /var/www/html/index.php
