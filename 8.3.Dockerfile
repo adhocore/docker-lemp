@@ -76,4 +76,4 @@ EXPOSE 11300 11211 9300 9200 9000 6379 5432 3306 88 80 25
 
 # commands
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["supervisord", "-n", "-j", "/supervisord.pid"
+CMD ["supervisord", "-n", "-j", "/supervisord.pid"]
