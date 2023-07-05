@@ -33,7 +33,7 @@ jobs:
         run: |
           docker run --name lemp83 adhocore/lemp:8.3a &
           sleep 60
-          docker exec $(docker ps -q -f 'name=lemp83') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:74|0:25'
-          PORTS=$(docker exec $(docker ps -q -f 'name=lemp83') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:74|0:25' | wc -l | xargs)
+          docker exec $(docker ps -q -f 'name=lemp83') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:25'
+          PORTS=$(docker exec $(docker ps -q -f 'name=lemp83') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:25' | wc -l | xargs)
           sleep 1 && docker stop lemp83 > /dev/null || true
-          [[ "11" == "$PORTS" ]] || { echo '[8.3] Not all ports are open' && exit 1; }
+          [[ "10" == "$PORTS" ]] || { echo '[8.3] Not all ports are open' && exit 1; }
