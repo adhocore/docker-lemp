@@ -50,7 +50,7 @@ redis         | 7.0.10      | 6379
 
 > `~`: PHP 7.4 has reached end of life and is deprecated.
 
-> `"`: swoole, phalcon have been disabled for now in order to optimize and speed up multiplatform builds (amd64/arm64).
+> `"`: swoole, phalcon have been disabled for now in order to optimize and speed up multiplatform builds (amd64/arm64) but can be [added back](https://github.com/adhocore/docker-lemp/issues/41#issuecomment-1639873818).
 
 ## Usage
 
