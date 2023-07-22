@@ -14,7 +14,7 @@
 
 [`adhocore/lemp`](https://hub.docker.com/r/adhocore/lemp) is a minimal single container LEMP full stack for local development.
 
-> If you want to try out preview build of PHP 8.3alpha, use image `adhocore/lemp:8.3a`.
+> If you want to try out preview build of PHP 8.3beta, use image `adhocore/lemp:8.3b`.
 
 > If you _must_ use PHP7.4 on LEMP stack then head over to [`adhocore/lemp:7.4`](7.4.Dockerfile).
 
@@ -34,7 +34,7 @@ memcached     | 1.6.15      | 11211
 MySQL`*`      | 5.7        | 3306
 nginx         | 1.21.1     | 80
 ~phalcon~`"`  | 5.0.3      | -
-PHP8.3`+`     | >=8.3.0a   | 9000
+PHP8.3`+`     | >=8.3.0b   | 9000
 PHP8.2`+`     | >=8.2.7    | 9000
 PHP8.1`+`     | >=8.1.20   | 9000
 PHP8.0`+`     | >=8.0.29   | 9000
@@ -46,7 +46,7 @@ redis         | 7.0.10      | 6379
 
 > `*`: Actually [MariaDB 10.6.12](https://mariadb.com/kb/en/mariadb-vs-mysql-compatibility/).
 
-> `+`: Different image tags each viz `:8.3a`, `:8.2`, `:8.1`, `:8.0` and `:7.4`.
+> `+`: Different image tags each viz `:8.3b`, `:8.2`, `:8.1`, `:8.0` and `:7.4`.
 
 > `~`: PHP 7.4 has reached end of life and is deprecated.
 
