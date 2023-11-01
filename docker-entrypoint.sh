@@ -66,7 +66,7 @@ if [ "$DISABLE_PGSQL" != "YES" ] && [ ! -f /run/postgresql/.init ]; then
   SQL=$(mktemp)
 
   mkdir -p /run/postgresql /usr/local/pgsql/data
-  chown postgres:postgres -R /run/postgresql /usr/local/pgsql/data $SQL
+  chown postgres:postgres -R /run/postgresql /usr/local/pgsql/data
   su postgres -c "initdb -D /usr/local/pgsql/data"
 
   PGSQL_DATABASE=${PGSQL_DATABASE:-test}
