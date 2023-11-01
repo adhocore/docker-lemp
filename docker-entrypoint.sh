@@ -79,7 +79,7 @@ if [ "$DISABLE_PGSQL" != "YES" ] && [ ! -f /run/postgresql/.init ]; then
   echo "GRANT ALL PRIVILEGES ON DATABASE $PGSQL_DATABASE TO postgres;" >> $SQL
 
   su postgres -c "pg_ctl -D '/usr/local/pgsql/data' -o '-c listen_addresses='' -p ${PGSQL_PORT:-5432}' -w start"
-  su postgres -c "psql -f '$SQL'"
+  su -c "psql --username=postgres --file='$SQL'"
   rm -rf ~/.psql_history ~/.ash_history $SQL
   su postgres -c "pg_ctl -D '/usr/local/pgsql/data' -m fast -w stop"
   sed -i -E 's/host\s+all(.*)trust/host    all\1password/' /usr/local/pgsql/data/pg_hba.conf
