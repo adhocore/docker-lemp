@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -26,6 +26,16 @@ jobs:
           docker pull adhocore/phpfpm:8.0 || true
           docker pull adhocore/phpfpm:8.1 || true
           docker pull adhocore/phpfpm:8.2 || true
+          docker pull adhocore/phpfpm:8.3 || true
+
+      - name: "[8.3] Build and push"
+        id: docker_build_83
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          file: 8.3.Dockerfile
+          tags: adhocore/lemp:8.3
+          platforms: linux/amd64,linux/arm64
       - name: "[8.2] Build and push"
         id: docker_build_82
         uses: docker/build-push-action@v4
@@ -51,6 +61,14 @@ jobs:
           tags: adhocore/lemp:8.0
           platforms: linux/amd64,linux/arm64
 
+      - name: "[8.3] Test"
+        run: |
+          docker run --name lemp83 adhocore/lemp:8.3 &
+          sleep 60
+          docker exec $(docker ps -q -f 'name=lemp83') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:25'
+          PORTS=$(docker exec $(docker ps -q -f 'name=lemp83') netstat -ant | grep -E '0:11300|0:11211|1:9300|1:9200|::9000|0:6379|1:5432|0:3306|0:88|0:25' | wc -l | xargs)
+          sleep 1 && docker stop lemp83 > /dev/null || true
+          [[ "10" == "$PORTS" ]] || { echo '[8.3] Not all ports are open' && exit 1; }
       - name: "[8.2] Test"
         run: |
           docker run --name lemp82 adhocore/lemp:8.2 &
