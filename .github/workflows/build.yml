@@ -34,7 +34,7 @@ jobs:
         with:
           push: true
           file: 8.3.Dockerfile
-          tags: adhocore/lemp:8.3
+          tags: adhocore/lemp:8.3,adhocore/lemp:latest
           platforms: linux/amd64,linux/arm64
       - name: "[8.2] Build and push"
         id: docker_build_82
@@ -42,7 +42,7 @@ jobs:
         with:
           push: true
           file: 8.2.Dockerfile
-          tags: adhocore/lemp:8.2,adhocore/lemp:latest
+          tags: adhocore/lemp:8.2
           platforms: linux/amd64,linux/arm64
       - name: "[8.1] Build and push"
         id: docker_build_81
