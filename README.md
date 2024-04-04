@@ -14,8 +14,6 @@
 
 [`adhocore/lemp`](https://hub.docker.com/r/adhocore/lemp) is a minimal single container LEMP full stack for local development.
 
-> If you _must_ use PHP7.4 on LEMP stack then head over to [`adhocore/lemp:7.4`](7.4.Dockerfile).
-
 It is quick jumpstart for onboarding you into docker based development.
 The download size is just about ~350MB which is tiny considering how much tools and stuffs it contains.
 
@@ -44,7 +42,7 @@ redis         | 7.0.10     | 6379
 
 > `*`: Actually [MariaDB 10.6.12](https://mariadb.com/kb/en/mariadb-vs-mysql-compatibility/).
 
-> `+`: Different image tags each viz `:8.3`, `:8.2`, `:8.1`, `:8.0` and `:7.4`.
+> `+`: Different image tags each, viz `:8.3`, `:8.2`, `:8.1`, `:8.0` and `:7.4`.
 
 > `~`: PHP 7.4 has reached end of life and is **deprecated**.
 
@@ -112,7 +110,7 @@ docker start lemp
 
 > **PRO** If you develop multiple apps, you can create multiple lemp containers with different names.
 >
-> eg: `docker run -p 8081:80 -v $(pwd):/var/www/html --name new-lemp -d adhocore/lemp:8.0`
+> eg: `docker run -p 8081:80 -v $(pwd):/var/www/html --name new-lemp -d adhocore/lemp:8.3`
 
 
 ## With Docker compose
