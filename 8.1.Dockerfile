@@ -35,8 +35,8 @@ RUN \
   # rabbitmq
   # && apk add -U rabbitmq-server@testing \
     # && apk add -U rabbitmq-server \
-  # evo
-  && mkdir -p /var/www/evo \
+  # adminerevo
+  && mkdir -p /var/www/adminerevo \
     && curl -sSLo /var/www/adminerevo/index.php \
       "https://github.com/adminerevo/adminerevo/releases/download/v$ADMINEREVO_VERSION/adminer-$ADMINEREVO_VERSION.php" \
   # cleanup
