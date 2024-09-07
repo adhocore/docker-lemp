@@ -19,26 +19,26 @@ The download size is just about ~350MB which is tiny considering how much tools 
 
 The docker container `adhocore/lemp` is composed of:
 
-Name          | Version    | Port
---------------|------------|------
-adminer       | 4.8.1      | 80
-alpine        | 3.16       | -
-beanstalkd    | 1.12       | 11300
-elasticsearch | 6.4.3      | 9200,9300
-mailcatcher   | 0.7.1      | 88,25
-memcached     | 1.6.15     | 11211
-MySQL`*`      | 5.7        | 3306
-nginx         | 1.21.1     | 80
-~phalcon~`"`  | 5.0.3      | -
-PHP8.3`+`     | >=8.3.4    | 9000
-PHP8.2`+`     | >=8.2.17   | 9000
-PHP8.1`+`     | >=8.1.27   | 9000
-PHP8.0`+`     | >=8.0.30   | 9000
-PHP7.4`~`     | >=7.4.33   | 9000
-PostgreSQL    | 14.7       | 5432
-~rabbitmq~`^` | 3.8.*      | 5672
-redis         | 7.0.10     | 6379
-~swoole~`"`   | 4.8.9      | -
+Name             | Version    | Port
+-----------------|------------|------
+adminerevo       | 4.8.1      | 80
+alpine           | 3.16       | -
+beanstalkd       | 1.12       | 11300
+elasticsearch    | 6.4.3      | 9200,9300
+mailcatcher      | 0.7.1      | 88,25
+memcached        | 1.6.15     | 11211
+MySQL`*`         | 5.7        | 3306
+nginx            | 1.21.1     | 80
+~phalcon~`"`     | 5.0.3      | -
+PHP8.3`+`        | >=8.3.4    | 9000
+PHP8.2`+`        | >=8.2.17   | 9000
+PHP8.1`+`        | >=8.1.27   | 9000
+PHP8.0`+`        | >=8.0.30   | 9000
+PHP7.4`~`        | >=7.4.33   | 9000
+PostgreSQL       | 14.7       | 5432
+~rabbitmq~`^`    | 3.8.*      | 5672
+redis            | 7.0.10     | 6379
+~swoole~`"`      | 4.8.9      | -
 
 > `*`: Actually [MariaDB 10.6.12](https://mariadb.com/kb/en/mariadb-vs-mysql-compatibility/).
 
@@ -85,8 +85,8 @@ docker run -p 8080:80 -p 8888:88 -v `pwd`:/var/www/html \
 
 After running container as above, you will be able to browse [localhost:8080](http://localhost:8080)!
 
-The database adminer will be available for [mysql](http://localhost:8080/adminer?server=127.0.0.1%3A3306&username=root)
-and [postgres](http://localhost:8080/adminer?pgsql=127.0.0.1%3A5432&username=postgres).
+The database adminerevo will be available for [mysql](http://localhost:8080/adminerevo?server=127.0.0.1%3A3306&username=root)
+and [postgres](http://localhost:8080/adminerevo?pgsql=127.0.0.1%3A5432&username=postgres).
 
 The mailcatcher will be available at [localhost:8888](http://localhost:8888) which displays mails in realtime.
 
@@ -215,7 +215,7 @@ redis
 ```
 
 > Example: `DISABLE=beanstalkd,mailcatcher,memcached,pgsql,redis`
-> Essential services like `nginx`, `php`, `adminer` cannot be disabled ;).
+> Essential services like `nginx`, `php`, `adminerevo` cannot be disabled ;).
 
 The service(s) will be enabled again if you run the container next time without `DISABLE` env or if you remove specific services from `DISABLE` CSV.
 
