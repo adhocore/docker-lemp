@@ -38,7 +38,7 @@ RUN \
   # evo
   && mkdir -p /var/www/evo \
     && curl -sSLo /var/www/adminerevo/index.php \
-      "https://github.com/adminerevo/adminerevo/releases/download/v$ADMINEREVO_VERSION/adminer-$ADMINEREVO_VERSION-en.php" \
+      "https://github.com/adminerevo/adminerevo/releases/download/v$ADMINEREVO_VERSION/adminer-$ADMINEREVO_VERSION.php" \
   # cleanup
   && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
 
