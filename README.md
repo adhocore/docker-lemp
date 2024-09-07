@@ -21,7 +21,7 @@ The docker container `adhocore/lemp` is composed of:
 
 Name             | Version    | Port
 -----------------|------------|------
-adminerevo       | 4.8.1      | 80
+adminerevo       | 4.8.4      | 80
 alpine           | 3.16       | -
 beanstalkd       | 1.12       | 11300
 elasticsearch    | 6.4.3      | 9200,9300
