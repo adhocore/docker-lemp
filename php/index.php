@@ -38,6 +38,6 @@ echo PHP_SAPI === 'cli'
     ? "\nSource code: https://github.com/adhocore/docker-lemp\n\n"
     : "</pre>\n\n"
         . 'Source code: <a href="https://github.com/adhocore/docker-lemp" target="_blank">adhocore/docker-lemp</a>'
-        . ' | Adminer: <a href="/adminer?server=127.0.0.1%3A3306&username=root" target="_blank">mysql</a>, '
-        . ' <a href="/adminer?pgsql=127.0.0.1%3A5432&username=postgres" target="_blank">postgres</a>'
+        . ' | Adminerevo: <a href="/adminerevo?server=127.0.0.1%3A3306&username=root" target="_blank">mysql</a>, '
+        . ' <a href="/adminerevo?pgsql=127.0.0.1%3A5432&username=postgres" target="_blank">postgres</a>'
         . "\n";
