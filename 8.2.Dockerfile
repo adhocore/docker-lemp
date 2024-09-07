@@ -3,7 +3,7 @@ FROM adhocore/phpfpm:8.2
 MAINTAINER Jitendra Adhikari <jiten.adhikary@gmail.com>
 
 ENV \
-  ADMINER_VERSION=4.8.1 \
+  ADMINEREVO_VERSION=4.8.4 \
   ES_HOME=/usr/share/java/elasticsearch \
   PATH=/usr/share/java/elasticsearch/bin:$PATH
 
@@ -35,10 +35,10 @@ RUN \
   # rabbitmq
   # && apk add -U rabbitmq-server@testing \
     # && apk add -U rabbitmq-server \
-  # adminer
-  && mkdir -p /var/www/adminer \
-    && curl -sSLo /var/www/adminer/index.php \
-      "https://github.com/vrana/adminer/releases/download/v$ADMINER_VERSION/adminer-$ADMINER_VERSION-en.php" \
+  # evo
+  && mkdir -p /var/www/evo \
+    && curl -sSLo /var/www/evo/index.php \
+      "https://github.com/adminerevo/adminerevo/releases/download/v$ADMINEREVO_VERSION/adminer-$ADMINEREVO_VERSION.php" \
   # cleanup
   && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
 
